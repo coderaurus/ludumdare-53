@@ -12,9 +12,8 @@ var visited = false
 var unlock_tier = 0 # affects the initial arrival event
 
 var ocurring_events = []
-var event 
-
-
+var event
+var quest
 
 
 func on_enter():
@@ -27,3 +26,11 @@ func _on_enter():
 	else:
 		System.game.UI.open_settlement(self)
 	pass # Replace with function body.
+
+
+func set_event(e : Event):
+	event = e
+	# notify player with a visual cue
+
+func set_quest(q):
+	quest = q

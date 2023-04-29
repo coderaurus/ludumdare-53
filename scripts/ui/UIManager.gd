@@ -6,13 +6,15 @@ onready var settlement_window = $"Settlement/Window"
 onready var quest_window = $"Quest/Window"
 onready var unit_selector = $"Unit Selector/Window"
 onready var unit_window = $"Unit/Window"
+onready var event_window = $"Event/Window"
 onready var log_panel = $Log
 onready var settlements = $Settlements
 onready var gold = $Gold
+onready var company = $Company
 
 func _ready():
 	_init_menu()
-	
+	$Company.init()	
 
 
 func _init_menu():
@@ -30,8 +32,14 @@ func _process(delta):
 		_toggle_menu()
 
 
+func open_event(st: Settlement, e:Event, unit: Unit):
+	event_window.open(st, e, unit)
+
 func open_settlement(settlement, event = null):
-	settlement_window.open(settlement, event)
+	if event != null:
+		event_window.open(settlement, event)
+	else:
+		settlement_window.open(settlement, event)
 
 func open_unit(unit):
 	unit_window.open(unit)

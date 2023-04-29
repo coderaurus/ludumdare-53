@@ -8,3 +8,4 @@ onready var map = $Map
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	System.game = self
+	$Events.generate_initial_event(map.get_settlement(0))

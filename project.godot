@@ -9,10 +9,35 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Company",
+"language": "GDScript",
+"path": "res://scripts/Company.gd"
+}, {
+"base": "Control",
+"class": "Company_UI",
+"language": "GDScript",
+"path": "res://scripts/ui/Company.gd"
+}, {
+"base": "Node2D",
+"class": "Event",
+"language": "GDScript",
+"path": "res://scripts/map/Event.gd"
+}, {
+"base": "Panel",
+"class": "Event_Window",
+"language": "GDScript",
+"path": "res://scripts/ui/Event_Window.gd"
+}, {
 "base": "Node",
 "class": "Game",
 "language": "GDScript",
 "path": "res://scripts/Game.gd"
+}, {
+"base": "Node2D",
+"class": "Map",
+"language": "GDScript",
+"path": "res://scripts/map/Map.gd"
 }, {
 "base": "Line2D",
 "class": "Road",
@@ -40,7 +65,12 @@ _global_script_classes=[ {
 "path": "res://scripts/ui/Unit_Button.gd"
 } ]
 _global_script_class_icons={
+"Company": "",
+"Company_UI": "",
+"Event": "",
+"Event_Window": "",
 "Game": "",
+"Map": "",
 "Road": "",
 "Settlement": "",
 "Settlement_Button": "",

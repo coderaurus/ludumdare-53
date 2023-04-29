@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/ui/UIManager.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
@@ -11,6 +11,11 @@
 [ext_resource path="res://scripts/ui/Unit_Button.gd" type="Script" id=9]
 [ext_resource path="res://scripts/map/Unit.gd" type="Script" id=10]
 [ext_resource path="res://scripts/ui/Unit_Window.gd" type="Script" id=11]
+[ext_resource path="res://scripts/Company.gd" type="Script" id=12]
+[ext_resource path="res://scripts/ui/Company.gd" type="Script" id=13]
+[ext_resource path="res://scripts/map/EventManager.gd" type="Script" id=14]
+[ext_resource path="res://scenes/map/Event.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scripts/ui/Event_Window.gd" type="Script" id=16]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.06226
@@ -18,7 +23,15 @@ radius = 8.06226
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Events" type="Node2D" parent="."]
+script = ExtResource( 14 )
+
+[node name="Event" parent="Events" instance=ExtResource( 15 )]
+
 [node name="Company" type="Node2D" parent="."]
+script = ExtResource( 12 )
 
 [node name="Units" type="Node2D" parent="Company"]
 
@@ -99,6 +112,8 @@ anchor_right = 0.5
 margin_top = 5.0
 margin_right = 40.0
 margin_bottom = 45.0
+script = ExtResource( 13 )
+c_path = NodePath("../../Company")
 
 [node name="Title" type="Label" parent="UI/Company"]
 anchor_left = 0.5
@@ -127,6 +142,20 @@ margin_right = 100.0
 margin_bottom = 32.0
 text = "Reputation tier"
 align = 1
+
+[node name="Gold" type="Label" parent="UI"]
+margin_left = 480.0
+margin_top = 302.0
+margin_right = 582.0
+margin_bottom = 316.0
+text = "Gold: 99999999"
+
+[node name="Days" type="Label" parent="UI"]
+margin_left = 182.0
+margin_top = 9.0
+margin_right = 234.0
+margin_bottom = 23.0
+text = "Day 256"
 
 [node name="Settlements" type="Control" parent="UI"]
 margin_right = 40.0
@@ -479,19 +508,20 @@ margin_left = 99.0
 margin_top = -304.0
 margin_right = 561.0
 margin_bottom = -14.0
+script = ExtResource( 16 )
 
 [node name="Name" type="Label" parent="UI/Event/Window"]
 margin_left = 183.0
-margin_top = 9.0
+margin_top = 76.0
 margin_right = 281.0
-margin_bottom = 23.0
+margin_bottom = 90.0
 text = "Oh no, bandits!"
 
 [node name="Banner" type="TextureRect" parent="UI/Event/Window"]
 margin_left = 199.0
-margin_top = 27.0
+margin_top = 6.0
 margin_right = 263.0
-margin_bottom = 91.0
+margin_bottom = 70.0
 texture = ExtResource( 3 )
 
 [node name="Description" type="Label" parent="UI/Event/Window"]
@@ -572,20 +602,6 @@ margin_top = 153.0
 margin_right = 154.0
 margin_bottom = 173.0
 text = "OK"
-
-[node name="Gold" type="Label" parent="UI"]
-margin_left = 480.0
-margin_top = 302.0
-margin_right = 582.0
-margin_bottom = 316.0
-text = "Gold: 99999999"
-
-[node name="Days" type="Label" parent="UI"]
-margin_left = 182.0
-margin_top = 9.0
-margin_right = 234.0
-margin_bottom = 23.0
-text = "Day 256"
 
 [connection signal="on_inspect" from="Company/Units/Unit" to="Company/Units/Unit" method="_on_inspect"]
 [connection signal="on_enter" from="Map/Settlements/Settlement" to="Map/Settlements/Settlement" method="_on_enter"]

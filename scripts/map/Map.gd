@@ -1,9 +1,7 @@
 extends Node2D
 
+class_name Map
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 onready var settlements = $Settlements
 
 
@@ -13,7 +11,7 @@ func _ready():
 	pass # Replace with function body.
 
 func get_settlement(index):
-	return settlements.get_child(index).get_script()
+	return settlements.get_child(index)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
