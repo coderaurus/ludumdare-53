@@ -72,7 +72,10 @@ func get_roads_from(st: Settlement):
 	return connected
 
 
-func disable_roads(roads):
+func disable_roads(roads = null):
+	if roads == null:
+		roads = $Roads.get_children()
+	
 	for r in roads:
 		(r as Road).disable()
 		(r as Road).deselect()
@@ -84,4 +87,4 @@ func enable_roads(roads):
 
 
 func move_quest_unit(u: Unit, roads):
-	print("Start moving!")
+	u.start_moving(roads)

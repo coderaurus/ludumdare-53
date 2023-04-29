@@ -17,6 +17,7 @@ export var pay = 100
 
 var quest = null
 var at
+var path
 
 signal on_inspect
 
@@ -37,3 +38,38 @@ func get_stats():
 
 func is_hirable():
 	return System.game.company.gold >= pay
+
+
+func start_moving(roads):
+	path = roads
+	move()
+
+
+func move():
+	var tween = get_tree().create_tween()
+	var travel_time
+	var target
+	var distance
+	if path[0].s_node_a == at:
+		target = path[0].s_node_b
+		distance = (at.position as Vector2).distance_to(target.position)
+		travel_time = distance / speed * 0.7
+		tween.tween_property(self, "position", target.position, travel_time).from(at.position)
+	else:
+		target = path[0].s_node_a
+		distance = (at.position as Vector2).distance_to(target.position)
+		travel_time = distance / speed * 0.7
+		tween.tween_property(self, "position", target.position, travel_time)
+	# check events after movement
+	yield(tween, "finished")
+	at = target
+	path.pop_at(0)
+	#
+	# check events!
+	#
+	if path.size() > 0:
+		move()
+	else:
+		# quest complete!
+		pass
+	

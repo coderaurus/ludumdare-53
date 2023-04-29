@@ -16,4 +16,5 @@ func _close(cancelled = true):
 func _confirm():
 	_close(false)
 	$Confirm.visible = false
+	System.game.close_routing(true)
 	System.game.map.move_quest_unit(System.game.routing_quest.unit, System.game.routing_roads_selected)

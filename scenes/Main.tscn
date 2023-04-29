@@ -50,6 +50,7 @@ script = ExtResource( 12 )
 position = Vector2( 192, 167 )
 script = ExtResource( 10 )
 portrait = ExtResource( 3 )
+speed = 6
 hired = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit"]

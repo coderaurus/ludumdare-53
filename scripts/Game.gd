@@ -25,9 +25,11 @@ func _ready():
 func start_routing(quest: Quest, unit: Unit):
 	UI.start_routing()
 	routing_quest = quest
+	routing_quest.unit = unit
 	routing_unit = unit
 
 func cancel_routing():
+	routing_quest.unit = null
 	UI.cancel_routing(routing_unit, routing_quest)
 
 func select_road(st : Settlement):
@@ -102,3 +104,10 @@ func open_neighboring_settlements(for_st: Settlement):
 func close_neighbouring_settlements(for_st: Settlement):
 	var roads = map.get_roads_from(for_st)
 	map.disable_roads(roads)
+
+func close_routing(completed=true):
+	if completed:
+		UI.routing = false
+		map.disable_roads()
+	else:
+		routing_quest.unit = null
