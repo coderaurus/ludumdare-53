@@ -11,15 +11,12 @@ onready var s_node = get_node(s_path)
 func _ready():
 	pass # Replace with function body.
 
-
-#func _process(delta):
-#	if s_node != null:
-#		rect_position = s_node.position
-
+func _process(delta):
+	if rect_position != s_node.position:
+		rect_position = s_node.position
 
 func _open():
-	print("Its a me")
-#	s_node.on_enter()
+	print("Opening %s" % s_node)
 	s_node.emit_signal("on_enter")
 
 
