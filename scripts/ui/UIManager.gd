@@ -1,7 +1,7 @@
 extends Control
 
 
-var menu_visible = true
+export var menu_visible = true
 
 func _ready():
 	_init_menu()

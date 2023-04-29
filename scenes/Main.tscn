@@ -1,25 +1,125 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/ui/UIManager.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://scripts/map/Settlement.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.06226
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="Company" type="Node2D" parent="."]
+
+[node name="UI" type="Control" parent="Company"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 320.0
+margin_top = 5.0
+margin_right = 360.0
+margin_bottom = 45.0
+
+[node name="Title" type="Label" parent="Company/UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -49.5
+margin_top = 5.0
+margin_right = 49.5
+margin_bottom = 19.0
+text = "Company name"
+align = 1
+
+[node name="Reputation" type="ProgressBar" parent="Company/UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_top = 25.0
+margin_right = 100.0
+margin_bottom = 43.0
+
+[node name="Tier" type="Label" parent="Company/UI/Reputation"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_top = 18.0
+margin_right = 100.0
+margin_bottom = 32.0
+text = "Reputation tier"
+align = 1
+
+[node name="Units" type="Node2D" parent="Company"]
+
+[node name="Unit" type="Area2D" parent="Company/Units"]
+position = Vector2( 257, 263 )
+
+[node name="Sprite" type="Sprite" parent="Company/Units/Unit"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit"]
+shape = SubResource( 1 )
+
+[node name="Map" type="Node2D" parent="."]
+
+[node name="Roads" type="Node2D" parent="Map"]
+
+[node name="Road 1" type="Line2D" parent="Map/Roads"]
+points = PoolVector2Array( 358, 233, 481, 189 )
+width = 2.0
+default_color = Color( 0.509804, 0.929412, 0.376471, 1 )
+
+[node name="Settlements" type="Node2D" parent="Map"]
+
+[node name="Settlement" type="Area2D" parent="Map/Settlements"]
+position = Vector2( 358, 233 )
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Settlements/Settlement"]
+shape = SubResource( 1 )
+
+[node name="Icon Button" type="TextureButton" parent="Map/Settlements/Settlement"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 56.0
+margin_bottom = 56.0
+rect_scale = Vector2( 0.25, 0.25 )
+texture_normal = ExtResource( 3 )
+
+[node name="Settlement2" type="Area2D" parent="Map/Settlements"]
+position = Vector2( 481, 188 )
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Settlements/Settlement2"]
+shape = SubResource( 1 )
+
+[node name="Icon Button" type="TextureButton" parent="Map/Settlements/Settlement2"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 56.0
+margin_bottom = 56.0
+rect_scale = Vector2( 0.25, 0.25 )
+texture_normal = ExtResource( 3 )
+
 [node name="UI" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 640.0
+margin_bottom = 319.0
 script = ExtResource( 1 )
+menu_visible = false
 
 [node name="Menu" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Settings" type="Panel" parent="UI/Menu"]
-margin_left = 631.0
-margin_top = 433.0
-margin_right = 1015.0
-margin_bottom = 587.0
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 249.0
+margin_top = 159.0
+margin_right = 633.0
+margin_bottom = 313.0
 
 [node name="Label" type="Label" parent="UI/Menu/Settings"]
 margin_left = 5.0
@@ -71,3 +171,297 @@ margin_top = -17.0
 margin_right = 40.0
 margin_bottom = -3.0
 text = "Music"
+
+[node name="Quest Window" type="Panel" parent="UI"]
+margin_left = -377.0
+margin_top = 36.0
+margin_right = -11.0
+margin_bottom = 267.0
+
+[node name="Title" type="Label" parent="UI/Quest Window"]
+margin_left = 142.0
+margin_top = 4.0
+margin_right = 223.0
+margin_bottom = 18.0
+text = "Quest Name"
+
+[node name="Description" type="Label" parent="UI/Quest Window"]
+margin_left = 134.0
+margin_top = 36.0
+margin_right = 359.0
+margin_bottom = 96.0
+text = "\"I need X delivered to Y.
+ The reward is 150 gold pieces\""
+
+[node name="Contact" type="Control" parent="UI/Quest Window"]
+margin_left = 46.0
+margin_top = 29.0
+margin_right = 86.0
+margin_bottom = 69.0
+
+[node name="Profile" type="TextureRect" parent="UI/Quest Window/Contact"]
+margin_left = 5.0
+margin_top = 3.0
+margin_right = 69.0
+margin_bottom = 67.0
+texture = ExtResource( 3 )
+
+[node name="Name" type="Label" parent="UI/Quest Window/Contact"]
+margin_left = 5.0
+margin_top = 58.0
+margin_right = 68.0
+margin_bottom = 72.0
+text = "John"
+align = 2
+
+[node name="Assignee" type="Control" parent="UI/Quest Window"]
+margin_left = 21.0
+margin_top = 137.0
+margin_right = 61.0
+margin_bottom = 177.0
+
+[node name="Header" type="Label" parent="UI/Quest Window/Assignee"]
+margin_left = -11.0
+margin_top = -17.0
+margin_right = 51.0
+margin_bottom = -3.0
+text = "Assignee: *select a unit below*"
+
+[node name="Profile" type="TextureRect" parent="UI/Quest Window/Assignee"]
+margin_left = -5.0
+margin_top = 4.0
+margin_right = 59.0
+margin_bottom = 68.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="Type" type="Label" parent="UI/Quest Window/Assignee"]
+margin_left = -11.0
+margin_top = 40.0
+margin_right = 36.0
+margin_bottom = 54.0
+text = "Ground"
+
+[node name="Name" type="Label" parent="UI/Quest Window/Assignee"]
+margin_left = 52.0
+margin_top = 6.0
+margin_right = 107.0
+margin_bottom = 20.0
+text = "Mailman"
+
+[node name="Stats" type="Label" parent="UI/Quest Window/Assignee"]
+margin_left = 53.0
+margin_top = 21.0
+margin_right = 161.0
+margin_bottom = 86.0
+text = "Reputation: Shun
+Speed: 5
+Defense: 2
+Charisma: 2"
+
+[node name="Button" type="Button" parent="UI/Quest Window"]
+margin_left = 230.0
+margin_top = 199.0
+margin_right = 359.0
+margin_bottom = 225.0
+text = "Accept Quest"
+
+[node name="Settlement Window" type="Panel" parent="UI"]
+margin_left = 645.0
+margin_top = 35.0
+margin_right = 815.0
+margin_bottom = 264.0
+
+[node name="Name" type="Label" parent="UI/Settlement Window"]
+margin_left = 6.0
+margin_top = 7.0
+margin_right = 165.0
+margin_bottom = 34.0
+text = "Nogob Town"
+valign = 1
+
+[node name="Visited" type="Label" parent="UI/Settlement Window"]
+margin_left = 7.0
+margin_top = 40.0
+margin_right = 109.0
+margin_bottom = 54.0
+text = "*Not visited yet"
+align = 1
+
+[node name="Label" type="Label" parent="UI/Settlement Window"]
+margin_left = 6.0
+margin_top = 124.0
+margin_right = 91.0
+margin_bottom = 189.0
+text = "Known for:
+- Goblin hate
+- Dragon fear
+- Bandit raids"
+
+[node name="Unit Selector" type="Panel" parent="UI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -258.5
+margin_top = -29.0
+margin_right = 258.5
+margin_bottom = 11.0
+
+[node name="Unit" type="Control" parent="UI/Unit Selector"]
+margin_left = 19.0
+margin_top = -7.0
+margin_right = 59.0
+margin_bottom = 33.0
+
+[node name="Status" type="Label" parent="UI/Unit Selector/Unit"]
+margin_top = -15.0
+margin_right = 40.0
+margin_bottom = -1.0
+text = "Status"
+
+[node name="Profile" type="TextureButton" parent="UI/Unit Selector/Unit"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 3 )
+
+[node name="Unit2" type="Control" parent="UI/Unit Selector"]
+margin_left = 72.5
+margin_top = -7.0
+margin_right = 112.5
+margin_bottom = 33.0
+
+[node name="Status" type="Label" parent="UI/Unit Selector/Unit2"]
+margin_top = -15.0
+margin_right = 40.0
+margin_bottom = -1.0
+text = "Status"
+
+[node name="Profile" type="TextureButton" parent="UI/Unit Selector/Unit2"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 3 )
+
+[node name="Unit3" type="Control" parent="UI/Unit Selector"]
+margin_left = 124.5
+margin_top = -7.0
+margin_right = 164.5
+margin_bottom = 33.0
+
+[node name="Status" type="Label" parent="UI/Unit Selector/Unit3"]
+margin_top = -15.0
+margin_right = 40.0
+margin_bottom = -1.0
+text = "Status"
+
+[node name="Profile" type="TextureButton" parent="UI/Unit Selector/Unit3"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 3 )
+
+[node name="Event Window" type="Panel" parent="UI"]
+margin_left = 99.0
+margin_top = -304.0
+margin_right = 561.0
+margin_bottom = -14.0
+
+[node name="Name" type="Label" parent="UI/Event Window"]
+margin_left = 183.0
+margin_top = 9.0
+margin_right = 281.0
+margin_bottom = 23.0
+text = "Oh no, bandits!"
+
+[node name="Banner" type="TextureRect" parent="UI/Event Window"]
+margin_left = 199.0
+margin_top = 27.0
+margin_right = 263.0
+margin_bottom = 91.0
+texture = ExtResource( 3 )
+
+[node name="Description" type="Label" parent="UI/Event Window"]
+margin_left = 11.0
+margin_top = 98.0
+margin_right = 446.0
+margin_bottom = 163.0
+text = "\"You encounter bandits!
+They demand your belongings for your well being.\""
+
+[node name="Question" type="Label" parent="UI/Event Window"]
+margin_left = 37.0
+margin_top = 184.0
+margin_right = 420.0
+margin_bottom = 251.0
+text = "Give up your goods and abandon quest? Or defend yourself?"
+
+[node name="Option A" type="Button" parent="UI/Event Window"]
+margin_left = 92.0
+margin_top = 217.0
+margin_right = 361.0
+margin_bottom = 247.0
+text = "Give goods"
+
+[node name="Option B" type="Button" parent="UI/Event Window"]
+margin_left = 92.0
+margin_top = 251.0
+margin_right = 360.0
+margin_bottom = 281.0
+text = "Defend yourself"
+
+[node name="Unit Window" type="Panel" parent="UI"]
+margin_left = 257.0
+margin_top = 334.0
+margin_right = 427.0
+margin_bottom = 523.0
+
+[node name="Profile" type="TextureRect" parent="UI/Unit Window"]
+margin_left = 10.0
+margin_top = 8.0
+margin_right = 74.0
+margin_bottom = 72.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="Type" type="Label" parent="UI/Unit Window"]
+margin_left = 55.0
+margin_top = 25.0
+margin_right = 102.0
+margin_bottom = 39.0
+text = "Ground"
+
+[node name="Name" type="Label" parent="UI/Unit Window"]
+margin_left = 56.0
+margin_top = 9.0
+margin_right = 111.0
+margin_bottom = 23.0
+text = "Mailman"
+
+[node name="Stats" type="Label" parent="UI/Unit Window"]
+margin_left = 11.0
+margin_top = 54.0
+margin_right = 119.0
+margin_bottom = 119.0
+text = "Reputation: Shun
+Speed: 5
+Defense: 2
+Charisma: 2"
+
+[node name="OK Button" type="Button" parent="UI/Unit Window"]
+margin_left = 16.0
+margin_top = 153.0
+margin_right = 154.0
+margin_bottom = 173.0
+text = "OK"
+
+[node name="Log" type="Label" parent="UI"]
+modulate = Color( 1, 1, 1, 0.588235 )
+margin_left = 7.0
+margin_top = 6.0
+margin_right = 136.0
+margin_bottom = 146.0
+text = "X heading to B
+Y heading to C
+Z arrived to D"
