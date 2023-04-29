@@ -1,24 +1,36 @@
 extends Control
 
-
 export var menu_visible = true
+
+onready var settlement_window = $"Settlement/Window"
+onready var quest_window = $"Quest/Window"
+onready var unit_selector = $"Unit Selector/Window"
+onready var unit_window = $"Unit/Window"
+onready var log_panel = $Log
+onready var settlements = $Settlements
 
 func _ready():
 	_init_menu()
+	
+
 
 func _init_menu():
+	$Menu.visible = false
 	$Menu/Settings/Sound/Slider.max_value = SoundManager.MAX_DB
 	$Menu/Settings/Sound/Slider.min_value = SoundManager.MUTE_DB
 	
 	$Menu/Settings/Music/Slider.max_value = MusicManager.MAX_DB
 	$Menu/Settings/Music/Slider.min_value = MusicManager.MUTE_DB
-	
 
 
 func _process(delta):
 	
 	if Input.is_action_just_pressed("menu"):
 		_toggle_menu()
+
+
+func open_settlement(settlement, event = null):
+	settlement_window.open(settlement, event)
 
 
 func _toggle_sound():
@@ -62,6 +74,7 @@ func hide_menu():
 	_toggle_focus($Menu/Settings, Control.FOCUS_NONE)
 	var tween = create_tween().set_parallel()
 	tween.tween_property($Menu/Settings, "modulate", Color.transparent, 0.1)
+	tween.tween_property($Menu, "visible", true, 0).set_delay(0.1)
 	tween.chain().tween_property(self, "menu_visible", false, 0)
 	get_parent().in_menu = false
 
@@ -69,10 +82,12 @@ func hide_menu():
 func show_menu():
 	if is_inside_tree():
 		var tween = create_tween().set_parallel()
+		tween.tween_property($Menu, "visible", true, 0)
 		tween.tween_property($Menu/Settings, "modulate", Color.white, 0.5).set_delay(0.1)
 		tween.chain().tween_property(self, "menu_visible", true, 0)
 		
 		_toggle_focus($Menu/Settings, Control.FOCUS_ALL)
+		
 		get_parent().in_menu = true
 
 

@@ -1,16 +1,10 @@
 extends Node
+class_name Game
 
-export var in_menu = false;
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+export var in_menu = false
+onready var UI = $UI
+onready var map = $Map
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	System.game = self

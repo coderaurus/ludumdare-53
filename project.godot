@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Game",
+"language": "GDScript",
+"path": "res://scripts/Game.gd"
+}, {
+"base": "Node",
+"class": "Settlement",
+"language": "GDScript",
+"path": "res://scripts/map/Settlement.gd"
+}, {
+"base": "Control",
+"class": "Settlement_Button",
+"language": "GDScript",
+"path": "res://scripts/ui/Settlement_Button.gd"
+} ]
+_global_script_class_icons={
+"Game": "",
+"Settlement": "",
+"Settlement_Button": ""
+}
+
 [application]
 
 config/name="Ld- 53"
@@ -18,6 +40,7 @@ config/icon="res://icon.png"
 
 MusicManager="*res://scenes/audio/MusicManager.tscn"
 SoundManager="*res://scenes/audio/SoundManager.tscn"
+System="*res://scripts/System.gd"
 
 [display]
 
