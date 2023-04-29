@@ -9,6 +9,8 @@ onready var visited = $Visited
 onready var info = $Info
 onready var close_button = $Button
 
+export var to_center = 395
+export var to_side = 195
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,7 +19,7 @@ func _ready():
 
 func open(settlement : Settlement, event = null):
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position/x", 250, 0.2)
+	tween.tween_property(self, "rect_position", Vector2.LEFT * to_center, 0.2).as_relative()
 	
 	_set_fields(settlement)
 
@@ -31,8 +33,8 @@ func _set_fields(settlement : Settlement):
 
 
 func _get_settlement_info():
-	pass
+	return ""
 
 func _close():
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position/x", 645, 0.2)
+	tween.tween_property(self, "rect_position", Vector2.RIGHT * to_center, 0.2).as_relative()
