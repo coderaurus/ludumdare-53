@@ -16,7 +16,7 @@ export var hired = false
 export var pay = 100
 
 var quest = null
-
+var at
 
 signal on_inspect
 

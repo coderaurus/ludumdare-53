@@ -31,7 +31,8 @@ func _select():
 		tween.tween_property(self, "rect_scale", Vector2.ONE * 1.2, 0.1)
 	elif rect_scale != Vector2.ONE:
 		tween.tween_property(self, "rect_scale", Vector2.ONE, 0.1)
-		
+	else:
+		tween.kill()
 
 func disable():
 	$TextureButton.disabled = true

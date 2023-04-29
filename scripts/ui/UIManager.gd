@@ -147,12 +147,22 @@ func _on_music_toggle_pressed():
 func _on_sound_toggle_pressed():
 	_toggle_sound()
 	SoundManager.sound("click")
-	
+
+
 func start_routing():
 	routing = true
 	route_selction.open()
 	unit_selector.hide()
 
+
 func cancel_routing(q: Quest, u: Unit):
 	unit_selector.show()
 	open_quest(System.game.map.settlement_unit_at(u), q)
+
+
+func show_route_confirmation():
+	route_selction.get_node("Confirm").visible = true
+
+
+func hide_route_confirmation():
+	route_selction.get_node("Confirm").visible = false

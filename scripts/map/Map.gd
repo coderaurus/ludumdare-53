@@ -24,8 +24,10 @@ func _init_roads():
 
 
 func get_road_to(st: Settlement, from: Settlement = null):
+	var reverse_roads = $Roads.get_children()
+	reverse_roads.invert()
 	for i in $Roads.get_child_count():
-		var r = $Roads.get_child(i)
+		var r = reverse_roads[i] as Road
 		
 		if from == null:
 			if r.s_node_a == st or r.s_node_b == st:
@@ -59,3 +61,27 @@ func settlement_unit_at(u: Unit):
 		if s.unit == u:
 			return u
 	return null
+
+
+func get_roads_from(st: Settlement):
+	var connected = []
+	for r in $Roads.get_children():
+		r = r as Road
+		if (r.s_node_a == st or r.s_node_b == st):
+			connected.append(r)
+	return connected
+
+
+func disable_roads(roads):
+	for r in roads:
+		(r as Road).disable()
+		(r as Road).deselect()
+
+
+func enable_roads(roads):
+	for r in roads:
+		(r as Road).enable()
+
+
+func move_quest_unit(u: Unit, roads):
+	print("Start moving!")

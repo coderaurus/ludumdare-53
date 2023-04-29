@@ -24,3 +24,23 @@ func init():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func disable():
+	width = 1
+
+
+func enable():
+	width = 2.5
+
+
+# Disable road from routing
+func deselect():
+	var color = Color.white
+	color.a = 0.6
+	set_default_color(color)
+	
+
+func select():
+	var color = Color.greenyellow
+	color.a = 0.6
+	set_default_color(color)

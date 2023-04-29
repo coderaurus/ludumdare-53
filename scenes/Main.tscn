@@ -102,16 +102,30 @@ script = ExtResource( 7 )
 
 [node name="Road" type="Line2D" parent="Map/Roads"]
 width = 2.0
-default_color = Color( 0.509804, 0.929412, 0.376471, 1 )
+default_color = Color( 1, 1, 1, 0.607843 )
 script = ExtResource( 8 )
 s_path_a = NodePath("../../Settlements/Settlement")
 s_path_b = NodePath("../../Settlements/Settlement2")
 
 [node name="Road2" type="Line2D" parent="Map/Roads"]
 width = 2.0
-default_color = Color( 0.509804, 0.929412, 0.376471, 1 )
+default_color = Color( 1, 1, 1, 0.607843 )
 script = ExtResource( 8 )
 s_path_a = NodePath("../../Settlements/Settlement2")
+s_path_b = NodePath("../../Settlements/Settlement3")
+
+[node name="Road3" type="Line2D" parent="Map/Roads"]
+width = 2.0
+default_color = Color( 1, 1, 1, 0.607843 )
+script = ExtResource( 8 )
+s_path_a = NodePath("../../Settlements/Settlement2")
+s_path_b = NodePath("../../Settlements/Settlement4")
+
+[node name="Road4" type="Line2D" parent="Map/Roads"]
+width = 2.0
+default_color = Color( 1, 1, 1, 0.607843 )
+script = ExtResource( 8 )
+s_path_a = NodePath("../../Settlements/Settlement4")
 s_path_b = NodePath("../../Settlements/Settlement3")
 
 [node name="Settlements" type="Node2D" parent="Map"]
@@ -141,6 +155,15 @@ settlement_name = "Town 3"
 contact_name = "Johnette"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Settlements/Settlement3"]
+shape = SubResource( 1 )
+
+[node name="Settlement4" type="Area2D" parent="Map/Settlements"]
+position = Vector2( 598, 216 )
+script = ExtResource( 4 )
+settlement_name = "Town 3"
+contact_name = "Johnette"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Settlements/Settlement4"]
 shape = SubResource( 1 )
 
 [node name="UI" type="Control" parent="."]
@@ -239,6 +262,16 @@ margin_right = 58.0
 margin_bottom = 40.0
 text = "Cancel selecting"
 
+[node name="Confirm" type="Button" parent="UI/Route Selection"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -58.0
+margin_top = 40.0
+margin_right = 58.0
+margin_bottom = 60.0
+text = "GO"
+
 [node name="Settlements" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -284,6 +317,22 @@ script = ExtResource( 6 )
 s_path = NodePath("../../../Map/Settlements/Settlement3")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Settlements/Settlement 3"]
+modulate = Color( 0.305882, 0.698039, 0.160784, 1 )
+margin_right = 64.0
+margin_bottom = 64.0
+rect_scale = Vector2( 0.25, 0.25 )
+rect_pivot_offset = Vector2( -8, -8 )
+texture_normal = ExtResource( 3 )
+
+[node name="Settlement 4" type="Control" parent="UI/Settlements"]
+margin_left = 384.0
+margin_top = 128.0
+margin_right = 424.0
+margin_bottom = 168.0
+script = ExtResource( 6 )
+s_path = NodePath("../../../Map/Settlements/Settlement4")
+
+[node name="TextureButton" type="TextureButton" parent="UI/Settlements/Settlement 4"]
 modulate = Color( 0.305882, 0.698039, 0.160784, 1 )
 margin_right = 64.0
 margin_bottom = 64.0
@@ -802,10 +851,13 @@ text = "OK"
 [connection signal="on_enter" from="Map/Settlements/Settlement" to="Map/Settlements/Settlement" method="_on_enter"]
 [connection signal="on_enter" from="Map/Settlements/Settlement2" to="Map/Settlements/Settlement2" method="_on_enter"]
 [connection signal="on_enter" from="Map/Settlements/Settlement3" to="Map/Settlements/Settlement3" method="_on_enter"]
+[connection signal="on_enter" from="Map/Settlements/Settlement4" to="Map/Settlements/Settlement4" method="_on_enter"]
 [connection signal="pressed" from="UI/Route Selection/Button" to="UI/Route Selection" method="_close"]
+[connection signal="pressed" from="UI/Route Selection/Confirm" to="UI/Route Selection" method="_confirm"]
 [connection signal="pressed" from="UI/Settlements/Settlement 1/TextureButton" to="UI/Settlements/Settlement 1" method="_open"]
 [connection signal="pressed" from="UI/Settlements/Settlement 2/TextureButton" to="UI/Settlements/Settlement 2" method="_open"]
 [connection signal="pressed" from="UI/Settlements/Settlement 3/TextureButton" to="UI/Settlements/Settlement 3" method="_open"]
+[connection signal="pressed" from="UI/Settlements/Settlement 4/TextureButton" to="UI/Settlements/Settlement 4" method="_open"]
 [connection signal="pressed" from="UI/Units/Unit 1/TextureButton" to="UI/Units/Unit 1" method="_on_inspect"]
 [connection signal="pressed" from="UI/Units/Unit 2/TextureButton" to="UI/Units/Unit 2" method="_on_inspect"]
 [connection signal="pressed" from="UI/Units/Unit 3/TextureButton" to="UI/Units/Unit 3" method="_on_inspect"]

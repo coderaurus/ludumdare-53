@@ -52,17 +52,21 @@ func _close():
 	System.game.UI.selecting_quest = false
 
 
-func select_unit(unit : Unit):
-	unit_profile.texture = unit.portrait
-	unit_name.text = unit.unit_name
-	unit_stats.text = unit.get_stats()
-	unit_type = unit.unit_type_names[unit.unit_type]
+func select_unit(u : Unit):
+	unit = u
+	unit_profile.texture = u.portrait
+	unit_name.text = u.unit_name
+	unit_stats.text = u.get_stats()
+	unit_type = u.unit_type_names[u.unit_type]
 	
 	accept_button.disabled = false
 
 
 func _on_accept():
 	_close()
+	settlement.unit = unit
+	unit.at = settlement
 	System.game.map.disable_settlement(settlement)
 	System.game.start_routing(quest, unit)
+	System.game.open_neighboring_settlements(settlement)
 	
