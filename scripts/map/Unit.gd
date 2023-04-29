@@ -12,6 +12,11 @@ export var defense = 2
 export var charsima = 1
 export(String, "Shun", "Questinoable", "Neutral", "Well Known", "Legendary") var reputation = 0
 export var reputation_names = ["Shun", "Questinoable", "Neutral", "Well Known", "Legendary"]
+export var hired = false
+export var pay = 100
+
+var quest = null
+
 
 signal on_inspect
 
@@ -23,6 +28,8 @@ func _ready():
 func _on_inspect():
 	print("Inspecting me, %s" % self)
 	System.game.UI.open_unit(self)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+
+func get_stats():
+	return "Reputation: %s\nSpeed: %s\nDefense: %s\nCharisma: %s\n" % \
+	[reputation_names[reputation], speed, defense, charsima]

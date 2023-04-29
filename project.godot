@@ -39,6 +39,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/map/Map.gd"
 }, {
+"base": "Node2D",
+"class": "Quest",
+"language": "GDScript",
+"path": "res://scripts/Quest.gd"
+}, {
+"base": "Node2D",
+"class": "QuestManager",
+"language": "GDScript",
+"path": "res://scripts/QuestManager.gd"
+}, {
+"base": "Panel",
+"class": "Quest_Window",
+"language": "GDScript",
+"path": "res://scripts/ui/Quest_Window.gd"
+}, {
 "base": "Line2D",
 "class": "Road",
 "language": "GDScript",
@@ -63,6 +78,16 @@ _global_script_classes=[ {
 "class": "Unit_Button",
 "language": "GDScript",
 "path": "res://scripts/ui/Unit_Button.gd"
+}, {
+"base": "Panel",
+"class": "Unit_Selector_Window",
+"language": "GDScript",
+"path": "res://scripts/ui/Unit_Selector_Window.gd"
+}, {
+"base": "Control",
+"class": "Unit_Toolbar_Button",
+"language": "GDScript",
+"path": "res://scripts/ui/Unit_Toolbar_Button.gd"
 } ]
 _global_script_class_icons={
 "Company": "",
@@ -71,11 +96,16 @@ _global_script_class_icons={
 "Event_Window": "",
 "Game": "",
 "Map": "",
+"Quest": "",
+"QuestManager": "",
+"Quest_Window": "",
 "Road": "",
 "Settlement": "",
 "Settlement_Button": "",
 "Unit": "",
-"Unit_Button": ""
+"Unit_Button": "",
+"Unit_Selector_Window": "",
+"Unit_Toolbar_Button": ""
 }
 
 [application]

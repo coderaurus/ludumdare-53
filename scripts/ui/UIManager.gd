@@ -12,9 +12,16 @@ onready var settlements = $Settlements
 onready var gold = $Gold
 onready var company = $Company
 
+var routing = false
+var selecting_quest = false
+
 func _ready():
 	_init_menu()
-	$Company.init()	
+
+func init():
+	company.init()
+	unit_selector.init(company.c_node)
+
 
 
 func _init_menu():
@@ -36,13 +43,26 @@ func open_event(st: Settlement, e:Event, unit: Unit):
 	event_window.open(st, e, unit)
 
 func open_settlement(settlement, event = null):
-	if event != null:
-		event_window.open(settlement, event)
+	if not routing:
+		if event != null:
+			event_window.open(settlement, event)
+		else:
+			settlement_window.open(settlement, event)
 	else:
-		settlement_window.open(settlement, event)
+		System.game.select_road(settlement)
 
 func open_unit(unit):
 	unit_window.open(unit)
+
+
+func select_unit(unit):
+	pass
+
+
+func open_quest(st: Settlement, quest: Quest):
+	quest_window.open(st, quest)
+	selecting_quest = true
+
 
 func _toggle_sound():
 	var slider = $Menu/Settings/Sound/Slider
@@ -118,3 +138,6 @@ func _on_music_toggle_pressed():
 func _on_sound_toggle_pressed():
 	_toggle_sound()
 	SoundManager.sound("click")
+	
+func start_routing():
+	routing = true

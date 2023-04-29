@@ -14,9 +14,6 @@ onready var reputation_tier = $Reputation/Tier
 onready var gold  = $"../Gold"
 onready var days  = $"../Days"
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
 func init():
 	title.text = c_node.company_name
