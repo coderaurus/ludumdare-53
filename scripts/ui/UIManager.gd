@@ -8,6 +8,7 @@ onready var unit_selector = $"Unit Selector/Window"
 onready var unit_window = $"Unit/Window"
 onready var log_panel = $Log
 onready var settlements = $Settlements
+onready var gold = $Gold
 
 func _ready():
 	_init_menu()
@@ -32,6 +33,8 @@ func _process(delta):
 func open_settlement(settlement, event = null):
 	settlement_window.open(settlement, event)
 
+func open_unit(unit):
+	unit_window.open(unit)
 
 func _toggle_sound():
 	var slider = $Menu/Settings/Sound/Slider

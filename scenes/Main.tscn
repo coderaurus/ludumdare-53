@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/ui/UIManager.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://scripts/ui/Settlement_Button.gd" type="Script" id=6]
 [ext_resource path="res://scripts/map/Map.gd" type="Script" id=7]
 [ext_resource path="res://scripts/map/Road.gd" type="Script" id=8]
+[ext_resource path="res://scripts/ui/Unit_Button.gd" type="Script" id=9]
+[ext_resource path="res://scripts/map/Unit.gd" type="Script" id=10]
+[ext_resource path="res://scripts/ui/Unit_Window.gd" type="Script" id=11]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.06226
@@ -17,50 +20,12 @@ script = ExtResource( 2 )
 
 [node name="Company" type="Node2D" parent="."]
 
-[node name="UI" type="Control" parent="Company"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 320.0
-margin_top = 5.0
-margin_right = 360.0
-margin_bottom = 45.0
-
-[node name="Title" type="Label" parent="Company/UI"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -49.5
-margin_top = 5.0
-margin_right = 49.5
-margin_bottom = 19.0
-text = "Company name"
-align = 1
-
-[node name="Reputation" type="ProgressBar" parent="Company/UI"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -100.0
-margin_top = 25.0
-margin_right = 100.0
-margin_bottom = 43.0
-
-[node name="Tier" type="Label" parent="Company/UI/Reputation"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -100.0
-margin_top = 18.0
-margin_right = 100.0
-margin_bottom = 32.0
-text = "Reputation tier"
-align = 1
-
 [node name="Units" type="Node2D" parent="Company"]
 
 [node name="Unit" type="Area2D" parent="Company/Units"]
-position = Vector2( 257, 263 )
-
-[node name="Sprite" type="Sprite" parent="Company/Units/Unit"]
-scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 3 )
+position = Vector2( 192, 167 )
+script = ExtResource( 10 )
+portrait = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit"]
 shape = SubResource( 1 )
@@ -119,13 +84,49 @@ menu_visible = false
 
 [node name="Log" type="Label" parent="UI"]
 modulate = Color( 1, 1, 1, 0.588235 )
-margin_left = 7.0
-margin_top = 6.0
-margin_right = 136.0
-margin_bottom = 146.0
+margin_left = 4.0
+margin_top = 198.0
+margin_right = 164.0
+margin_bottom = 318.0
 text = "X heading to B
 Y heading to C
 Z arrived to D"
+valign = 2
+
+[node name="Company" type="Control" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 45.0
+
+[node name="Title" type="Label" parent="UI/Company"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -49.5
+margin_top = 5.0
+margin_right = 49.5
+margin_bottom = 19.0
+text = "Company name"
+align = 1
+
+[node name="Reputation" type="ProgressBar" parent="UI/Company"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_top = 25.0
+margin_right = 100.0
+margin_bottom = 43.0
+
+[node name="Tier" type="Label" parent="UI/Company/Reputation"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_top = 18.0
+margin_right = 100.0
+margin_bottom = 32.0
+text = "Reputation tier"
+align = 1
 
 [node name="Settlements" type="Control" parent="UI"]
 margin_right = 40.0
@@ -140,6 +141,7 @@ script = ExtResource( 6 )
 s_path = NodePath("../../../Map/Settlements/Settlement")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Settlements/Settlement 1"]
+modulate = Color( 0.305882, 0.698039, 0.160784, 1 )
 margin_right = 64.0
 margin_bottom = 64.0
 rect_scale = Vector2( 0.25, 0.25 )
@@ -155,6 +157,7 @@ script = ExtResource( 6 )
 s_path = NodePath("../../../Map/Settlements/Settlement2")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Settlements/Settlement 2"]
+modulate = Color( 0.305882, 0.698039, 0.160784, 1 )
 margin_right = 64.0
 margin_bottom = 64.0
 rect_scale = Vector2( 0.25, 0.25 )
@@ -170,8 +173,26 @@ script = ExtResource( 6 )
 s_path = NodePath("../../../Map/Settlements/Settlement3")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Settlements/Settlement 3"]
+modulate = Color( 0.305882, 0.698039, 0.160784, 1 )
 margin_right = 64.0
 margin_bottom = 64.0
+rect_scale = Vector2( 0.25, 0.25 )
+rect_pivot_offset = Vector2( -8, -8 )
+texture_normal = ExtResource( 3 )
+
+[node name="Units" type="Control" parent="UI"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Unit 1" type="Control" parent="UI/Units"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 9 )
+s_path = NodePath("../../../Company/Units/Unit")
+
+[node name="TextureButton" type="TextureButton" parent="UI/Units/Unit 1"]
+margin_right = 40.0
+margin_bottom = 40.0
 rect_scale = Vector2( 0.25, 0.25 )
 rect_pivot_offset = Vector2( -8, -8 )
 texture_normal = ExtResource( 3 )
@@ -390,9 +411,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 41.5
+margin_left = 178.0
 margin_top = 250.0
-margin_right = 558.5
+margin_right = 459.0
 margin_bottom = 290.0
 
 [node name="Unit" type="Control" parent="UI/Unit Selector/Window"]
@@ -511,6 +532,7 @@ margin_left = 257.0
 margin_top = 334.0
 margin_right = 427.0
 margin_bottom = 523.0
+script = ExtResource( 11 )
 
 [node name="Profile" type="TextureRect" parent="UI/Unit/Window"]
 margin_left = 10.0
@@ -551,10 +573,27 @@ margin_right = 154.0
 margin_bottom = 173.0
 text = "OK"
 
+[node name="Gold" type="Label" parent="UI"]
+margin_left = 480.0
+margin_top = 302.0
+margin_right = 582.0
+margin_bottom = 316.0
+text = "Gold: 99999999"
+
+[node name="Days" type="Label" parent="UI"]
+margin_left = 182.0
+margin_top = 9.0
+margin_right = 234.0
+margin_bottom = 23.0
+text = "Day 256"
+
+[connection signal="on_inspect" from="Company/Units/Unit" to="Company/Units/Unit" method="_on_inspect"]
 [connection signal="on_enter" from="Map/Settlements/Settlement" to="Map/Settlements/Settlement" method="_on_enter"]
 [connection signal="on_enter" from="Map/Settlements/Settlement2" to="Map/Settlements/Settlement2" method="_on_enter"]
 [connection signal="on_enter" from="Map/Settlements/Settlement3" to="Map/Settlements/Settlement3" method="_on_enter"]
 [connection signal="pressed" from="UI/Settlements/Settlement 1/TextureButton" to="UI/Settlements/Settlement 1" method="_open"]
 [connection signal="pressed" from="UI/Settlements/Settlement 2/TextureButton" to="UI/Settlements/Settlement 2" method="_open"]
 [connection signal="pressed" from="UI/Settlements/Settlement 3/TextureButton" to="UI/Settlements/Settlement 3" method="_open"]
+[connection signal="pressed" from="UI/Units/Unit 1/TextureButton" to="UI/Units/Unit 1" method="_on_inspect"]
 [connection signal="pressed" from="UI/Settlement/Window/Button" to="UI/Settlement/Window" method="_close"]
+[connection signal="pressed" from="UI/Unit/Window/OK Button" to="UI/Unit/Window" method="_close"]

@@ -19,7 +19,7 @@ func _ready():
 
 func open(settlement : Settlement, event = null):
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "rect_position", Vector2.LEFT * to_center, 0.2).as_relative()
+	tween.tween_property(self, "rect_position", Vector2.LEFT * to_center, 0.1).as_relative()
 	
 	_set_fields(settlement)
 
@@ -37,4 +37,4 @@ func _get_settlement_info():
 
 func _close():
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "rect_position", Vector2.RIGHT * to_center, 0.2).as_relative()
+	tween.tween_property(self, "rect_position", Vector2.RIGHT * to_center, 0.1).as_relative()

@@ -18,8 +18,3 @@ func _process(delta):
 func _open():
 	print("Opening %s" % s_node)
 	s_node.emit_signal("on_enter")
-
-
-
-func _on_Icon_Button_pressed():
-	pass # Replace with function body.

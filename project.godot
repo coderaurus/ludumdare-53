@@ -28,12 +28,24 @@ _global_script_classes=[ {
 "class": "Settlement_Button",
 "language": "GDScript",
 "path": "res://scripts/ui/Settlement_Button.gd"
+}, {
+"base": "Area2D",
+"class": "Unit",
+"language": "GDScript",
+"path": "res://scripts/map/Unit.gd"
+}, {
+"base": "Control",
+"class": "Unit_Button",
+"language": "GDScript",
+"path": "res://scripts/ui/Unit_Button.gd"
 } ]
 _global_script_class_icons={
 "Game": "",
 "Road": "",
 "Settlement": "",
-"Settlement_Button": ""
+"Settlement_Button": "",
+"Unit": "",
+"Unit_Button": ""
 }
 
 [application]
