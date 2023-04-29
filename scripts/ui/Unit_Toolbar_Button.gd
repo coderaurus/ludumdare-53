@@ -11,7 +11,7 @@ func init(unit: Unit):
 	$Profile.modulate = Color.white
 	
 	if not unit.hired:
-		if System.game.company.gold < unit.pay:
+		if !unit.is_hirable():
 			$Profile.modulate = Color.gray
 		else:
 			$Profile.modulate = Color.white

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/ui/UIManager.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://scripts/QuestManager.gd" type="Script" id=19]
 [ext_resource path="res://scripts/ui/Unit_Toolbar_Button.gd" type="Script" id=20]
 [ext_resource path="res://scripts/ui/Unit_Selector_Window.gd" type="Script" id=21]
+[ext_resource path="res://scripts/map/Route Selection.gd" type="Script" id=22]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.06226
@@ -210,6 +211,34 @@ margin_right = 234.0
 margin_bottom = 23.0
 text = "Day 256"
 
+[node name="Route Selection" type="Control" parent="UI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = 21.0
+margin_right = 20.0
+margin_bottom = 61.0
+script = ExtResource( 22 )
+
+[node name="Hint" type="Label" parent="UI/Route Selection"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -112.0
+margin_right = 112.0
+margin_bottom = 14.0
+text = "Select road by clicking settlements"
+
+[node name="Button" type="Button" parent="UI/Route Selection"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -58.0
+margin_top = 20.0
+margin_right = 58.0
+margin_bottom = 40.0
+text = "Cancel selecting"
+
 [node name="Settlements" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -267,6 +296,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Unit 1" type="Control" parent="UI/Units"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 9 )
@@ -772,6 +802,7 @@ text = "OK"
 [connection signal="on_enter" from="Map/Settlements/Settlement" to="Map/Settlements/Settlement" method="_on_enter"]
 [connection signal="on_enter" from="Map/Settlements/Settlement2" to="Map/Settlements/Settlement2" method="_on_enter"]
 [connection signal="on_enter" from="Map/Settlements/Settlement3" to="Map/Settlements/Settlement3" method="_on_enter"]
+[connection signal="pressed" from="UI/Route Selection/Button" to="UI/Route Selection" method="_close"]
 [connection signal="pressed" from="UI/Settlements/Settlement 1/TextureButton" to="UI/Settlements/Settlement 1" method="_open"]
 [connection signal="pressed" from="UI/Settlements/Settlement 2/TextureButton" to="UI/Settlements/Settlement 2" method="_open"]
 [connection signal="pressed" from="UI/Settlements/Settlement 3/TextureButton" to="UI/Settlements/Settlement 3" method="_open"]
@@ -780,6 +811,7 @@ text = "OK"
 [connection signal="pressed" from="UI/Units/Unit 3/TextureButton" to="UI/Units/Unit 3" method="_on_inspect"]
 [connection signal="pressed" from="UI/Units/Unit 4/TextureButton" to="UI/Units/Unit 4" method="_on_inspect"]
 [connection signal="pressed" from="UI/Units/Unit 5/TextureButton" to="UI/Units/Unit 5" method="_on_inspect"]
+[connection signal="pressed" from="UI/Quest/Window/AcceptButton" to="UI/Quest/Window" method="_on_accept"]
 [connection signal="pressed" from="UI/Quest/Window/Cancel" to="UI/Quest/Window" method="_close"]
 [connection signal="pressed" from="UI/Settlement/Window/Button" to="UI/Settlement/Window" method="_close"]
 [connection signal="pressed" from="UI/Unit Selector/Window/Unit/Profile" to="UI/Unit Selector/Window/Unit" method="_on_select"]

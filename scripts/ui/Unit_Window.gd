@@ -23,7 +23,7 @@ func open(unit: Unit):
 		$"Hire Button".text = "Hire for %sG" % unit.pay
 		$"Hire Button".visible = true
 		$"Hire Button".disabled = true
-		if System.game.company.gold >= unit.pay:
+		if unit.is_hirable():
 			$"Hire Button".disabled = false
 		
 	else:

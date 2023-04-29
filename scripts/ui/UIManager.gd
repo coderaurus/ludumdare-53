@@ -11,6 +11,7 @@ onready var log_panel = $Log
 onready var settlements = $Settlements
 onready var gold = $Gold
 onready var company = $Company
+onready var route_selction = $"Route Selection"
 
 var routing = false
 var selecting_quest = false
@@ -56,12 +57,20 @@ func open_unit(unit):
 
 
 func select_unit(unit):
-	pass
+	quest_window.select_unit(unit)
 
 
 func open_quest(st: Settlement, quest: Quest):
 	quest_window.open(st, quest)
 	selecting_quest = true
+
+
+func disable_settlement(index):
+	settlements.get_child(index).disable()
+
+
+func enable_settlement(index):
+	settlements.get_child(index).enable()
 
 
 func _toggle_sound():
@@ -84,7 +93,7 @@ func _toggle_music():
 	else:
 		slider.value = MusicManager.stored_db
 		$Menu/Settings/Music/Button.text = "Music"
-		
+
 
 
 func _toggle_menu():
@@ -141,3 +150,9 @@ func _on_sound_toggle_pressed():
 	
 func start_routing():
 	routing = true
+	route_selction.open()
+	unit_selector.hide()
+
+func cancel_routing(q: Quest, u: Unit):
+	unit_selector.show()
+	open_quest(System.game.map.settlement_unit_at(u), q)

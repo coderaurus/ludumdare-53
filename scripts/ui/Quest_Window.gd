@@ -16,6 +16,7 @@ onready var unit_type = $Assignee/Type
 
 var quest
 var unit
+var settlement
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,6 +24,7 @@ func _ready():
 
 func open(st: Settlement, q:Quest, u: Unit = null):
 	quest = q
+	settlement = st
 	
 	if u != null:
 		unit = u
@@ -46,6 +48,8 @@ func _close():
 	unit_type = ""
 	
 	accept_button.disabled = true
+	
+	System.game.UI.selecting_quest = false
 
 
 func select_unit(unit : Unit):
@@ -59,5 +63,6 @@ func select_unit(unit : Unit):
 
 func _on_accept():
 	_close()
+	System.game.map.disable_settlement(settlement)
 	System.game.start_routing(quest, unit)
 	

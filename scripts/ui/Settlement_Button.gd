@@ -17,4 +17,27 @@ func _process(delta):
 
 func _open():
 	print("Opening %s" % s_node)
-	s_node.emit_signal("on_enter")
+	if System.game.UI.routing:
+		_select()
+	else:
+		s_node.emit_signal("on_enter")
+
+
+func _select():
+	var tween = get_tree().create_tween()
+	var selected = System.game.select_road(s_node)
+	
+	if selected:
+		tween.tween_property(self, "rect_scale", Vector2.ONE * 1.2, 0.1)
+	elif rect_scale != Vector2.ONE:
+		tween.tween_property(self, "rect_scale", Vector2.ONE, 0.1)
+		
+
+func disable():
+	$TextureButton.disabled = true
+	$TextureButton.modulate = Color.gray
+
+
+func enable():
+	$TextureButton.disabled = false
+	$TextureButton.modulate = Color.white

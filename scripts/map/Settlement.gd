@@ -14,6 +14,7 @@ var unlock_tier = 0 # affects the initial arrival event
 var ocurring_events = []
 var event
 var quest
+var unit
 
 
 func on_enter():

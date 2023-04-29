@@ -33,3 +33,7 @@ func _on_inspect():
 func get_stats():
 	return "Reputation: %s\nSpeed: %s\nDefense: %s\nCharisma: %s\n" % \
 	[reputation_names[reputation], speed, defense, charsima]
+
+
+func is_hirable():
+	return System.game.company.gold >= pay
