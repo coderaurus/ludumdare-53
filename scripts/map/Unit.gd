@@ -75,6 +75,4 @@ func move():
 		# quest complete!
 		if quest.complete():
 			quest = null
-		
-		pass
-	
+			System.game.emit_signal("new_quest")

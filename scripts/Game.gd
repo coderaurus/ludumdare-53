@@ -1,7 +1,10 @@
 extends Node
 class_name Game
 
+signal new_quest
+
 export var in_menu = false
+
 onready var UI = $UI
 onready var map = $Map
 onready var company = $Company
@@ -13,6 +16,10 @@ var last_st_added
 var last_r_added
 var route_finished = false
 
+var game_paused = true
+var game_complete = false
+var post_game = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	System.game = self
@@ -22,7 +29,15 @@ func _ready():
 	UI.init()
 
 
-func start_routing(quest: Quest, unit: Unit):
+func start_game(company_name):
+	company.company_name = company_name
+	UI.company.init()
+	$DayTimer.start()
+	unpause_game()
+	pass
+
+
+func start_routing(quest, unit: Unit):
 	UI.start_routing()
 	routing_quest = quest
 	routing_quest.unit = unit
@@ -42,11 +57,13 @@ func select_road(st : Settlement):
 		last = routing_roads_selected.size() - 1
 		var lr = routing_roads_selected[last]
 		var nr = map.get_road_to(st, last_st_added)
+		var conns = settlement_connections(st)
 		# cannot find next road and last road has no connection to selected road
-		if nr == null and last > 0 and lr.s_node_a != st and lr.s_node_b != st:
+		if nr == null and last > 0 and lr.s_node_a != st and lr.s_node_b != st \
+		and conns <= 1:
 			return false
 		# determine if st is going to be removed
-		elif lr.s_node_a == st or lr.s_node_b == st:
+		elif (lr.s_node_a == st or lr.s_node_b == st) and conns <= 1:
 			var index = routing_roads_selected.find(lr)
 			lr.deselect()
 			routing_roads_selected.pop_at(index)
@@ -57,7 +74,8 @@ func select_road(st : Settlement):
 				last_st_added = null
 			check_destination(st)
 			return false
-		else:
+		# new road
+		elif conns == 0:
 			lr = map.get_road_to(st, last_st_added)
 			
 			lr.select()
@@ -68,6 +86,8 @@ func select_road(st : Settlement):
 			last_st_added = st
 			last_r_added = lr
 			check_destination(st)
+			return true
+		else:
 			return true
 	# No entries on the list, add the one player is 
 	else:
@@ -97,6 +117,7 @@ func open_neighboring_settlements(for_st: Settlement):
 	for r in roads:
 		if !routing_roads_selected.has(r):
 			valid_roads.append(r)
+		
 	
 	map.enable_roads(valid_roads)
 	
@@ -118,8 +139,16 @@ func close_routing(completed=true):
 		routing_quest.unit = null
 
 
-func quest_complete(q: Quest, rwd):
-	var reputation = 5
+func settlement_connections(st: Settlement):
+	var c = 0
+	for r in routing_roads_selected:
+		if r.s_node_a == st or r.s_node_b == st:
+			c += 1
+	return c
+
+
+func quest_complete(q, rwd):
+	var reputation = 100
 	
 	# late?
 	if q.reward > rwd:
@@ -130,7 +159,35 @@ func quest_complete(q: Quest, rwd):
 	q.from.quest = null
 	q.queue_free()
 
-func quest_aborted(q: Quest):
+func quest_aborted(q):
 	var reputation = -4
 	company.reward(reputation)
 	UI.company.update()
+	q.unit = null
+	q.active = false
+
+
+func continue_playing():
+	unpause_game()
+
+
+func pause_game():
+	game_paused = true
+	get_tree().paused = game_paused
+
+
+func unpause_game():
+	game_paused = false
+	get_tree().paused = game_paused
+
+
+func add_day():
+	company.active_days += 1
+	UI.company.update()
+	$Quests.add_day()
+
+
+func game_completed():
+	yield(get_tree().create_timer(0.5), "timeout")
+	UI.open_end()
+	pause_game()

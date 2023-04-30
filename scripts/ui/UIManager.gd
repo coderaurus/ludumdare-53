@@ -12,6 +12,8 @@ onready var settlements = $Settlements
 onready var gold = $Gold
 onready var company = $Company
 onready var route_selction = $"Route Selection"
+onready var start = $"Start/Window"
+onready var end = $"End/Window"
 
 var routing = false
 var selecting_quest = false
@@ -60,7 +62,7 @@ func select_unit(unit):
 	quest_window.select_unit(unit)
 
 
-func open_quest(st: Settlement, quest: Quest, u: Unit = null):
+func open_quest(st: Settlement, quest, u: Unit = null):
 	quest_window.open(st, quest, u)
 	selecting_quest = true
 	unit_selector.check_units()
@@ -156,7 +158,7 @@ func start_routing():
 	unit_selector.hide()
 
 
-func cancel_routing(q: Quest, u: Unit):
+func cancel_routing(q, u: Unit):
 	unit_selector.show()
 	open_quest(System.game.map.settlement_unit_at(u), q)
 
@@ -171,3 +173,7 @@ func hide_route_confirmation():
 
 func clear_unit_selector():
 	unit_selector.clear_units()
+
+
+func open_end():
+	end.open(System.game.company)

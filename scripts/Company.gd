@@ -31,5 +31,8 @@ func get_reputation_title():
 
 
 func reward(rep, g):
-	reputation += rep
+	reputation = clamp(reputation + rep, 0 , 100)
 	gold += g
+	
+	if reputation >= 100 and !System.game.post_game:
+		System.game.game_completed()

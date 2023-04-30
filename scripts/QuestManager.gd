@@ -25,3 +25,9 @@ func generate_quest():
 	
 	add_child(quest)
 	return quest
+
+
+func add_day():
+	for q in get_children():
+		if q.active:
+			q.used_days += 1
