@@ -71,5 +71,8 @@ func move():
 		move()
 	else:
 		# quest complete!
+		if quest.complete():
+			quest = null
+		
 		pass
 	

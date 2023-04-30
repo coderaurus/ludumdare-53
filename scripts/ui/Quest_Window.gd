@@ -50,6 +50,7 @@ func _close():
 	accept_button.disabled = true
 	
 	System.game.UI.selecting_quest = false
+	System.game.UI.clear_unit_selector()
 
 
 func select_unit(u : Unit):

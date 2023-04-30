@@ -63,6 +63,7 @@ func select_unit(unit):
 func open_quest(st: Settlement, quest: Quest):
 	quest_window.open(st, quest)
 	selecting_quest = true
+	unit_selector.check_units()
 
 
 func disable_settlement(index):
@@ -166,3 +167,7 @@ func show_route_confirmation():
 
 func hide_route_confirmation():
 	route_selction.get_node("Confirm").visible = false
+
+
+func clear_unit_selector():
+	unit_selector.clear_units()

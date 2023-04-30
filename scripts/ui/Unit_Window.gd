@@ -35,3 +35,4 @@ func open(unit: Unit):
 func _close():
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "rect_position", Vector2.DOWN * 220, 0.1).as_relative()
+	System.game.UI.clear_unit_selector()

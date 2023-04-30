@@ -18,13 +18,18 @@ func _ready():
 
 func get_reputation_title():
 	var title
-	if reputation > 0.99:
+	if reputation > 99:
 		title = reputation_titles[3]
-	elif reputation > 0.5:
+	elif reputation > 50:
 		title = reputation_titles[2]
-	elif reputation > 0.25:
+	elif reputation > 25:
 		title = reputation_titles[1]
 	else:
 		title = reputation_titles[0]
 	
 	return title
+
+
+func reward(rep, g):
+	reputation += rep
+	gold += g

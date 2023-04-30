@@ -17,3 +17,20 @@ func hide():
 func show():
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "rect_position", Vector2.UP * 100, 0.1).as_relative()
+
+func check_units():
+	for i in get_child_count():
+		var unit_button : Unit_Toolbar_Button = get_child(i)
+		unit_button.show_availability()
+
+
+func disable_buttons():
+	for i in get_child_count():
+		var unit_button : Unit_Toolbar_Button = get_child(i)
+		unit_button.disable()
+
+
+func clear_units():
+	for i in get_child_count():
+		var unit_button : Unit_Toolbar_Button = get_child(i)
+		unit_button.clear()

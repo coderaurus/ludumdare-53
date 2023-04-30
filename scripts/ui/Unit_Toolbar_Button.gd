@@ -6,12 +6,16 @@ var unit
 
 
 
-func init(unit: Unit):
-	$Profile.texture_normal = unit.portrait
+func init(u: Unit):
+	if u != unit:
+		unit = u
+	$Profile.disabled = false
+	$Profile.texture_normal = u.portrait
 	$Profile.modulate = Color.white
+	$Status.text = ""
 	
-	if not unit.hired:
-		if !unit.is_hirable():
+	if not u.hired:
+		if !u.is_hirable():
 			$Profile.modulate = Color.gray
 		else:
 			$Profile.modulate = Color.white
@@ -23,9 +27,12 @@ func hide_status():
 
 
 func show_availability():
-	if unit.quest == null:
+	if unit.quest == null and unit.hired:
 		$Status.text = "Free"
 		$Profile.disabled = false
+	elif !unit.hired:
+		$Status.text = ""
+		$Profile.disabled = true
 	else:
 		$Status.text = "Busy"
 		$Profile.disabled = true
@@ -38,3 +45,12 @@ func _on_select():
 		System.game.UI.select_unit(unit)
 	else:
 		System.game.UI.open_unit(unit)
+		disable()
+
+
+func clear():
+	init(unit)
+	
+
+func disable():
+	$Profile.disabled = true

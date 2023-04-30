@@ -6,7 +6,7 @@ var quest_name = "Quest"
 var active = false
 var used_days = 0
 var asked_days = 5
-# settlements
+# settlements (2d nodes)
 var from
 var to
 # unit preferences
@@ -26,3 +26,19 @@ func get_description():
 			[goods_type_name[goods_type], to.settlement_name, asked_days, reward]
 	text += "\""
 	return text
+
+
+func complete():
+	var rwd = reward
+	if unit.at == to:
+		if used_days > asked_days:
+			rwd *= 0.75
+		
+		System.game.quest_complete(self, rwd)
+		return true
+	return false
+
+
+func abort():
+	System.game.quest_aborted(self)
+

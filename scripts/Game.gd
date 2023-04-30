@@ -107,7 +107,25 @@ func close_neighbouring_settlements(for_st: Settlement):
 
 func close_routing(completed=true):
 	if completed:
+		routing_unit.quest = routing_quest
 		UI.routing = false
+		UI.unit_selector.show()
 		map.disable_roads()
 	else:
 		routing_quest.unit = null
+
+
+func quest_complete(q: Quest, rwd):
+	var reputation = 5
+	
+	# late?
+	if q.reward > rwd:
+		reputation -= 1
+	
+	company.reward(reputation, rwd)
+	UI.company.update()
+
+func quest_aborted(q: Quest):
+	var reputation = -4
+	company.reward(reputation)
+	UI.company.update()

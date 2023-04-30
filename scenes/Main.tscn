@@ -43,6 +43,7 @@ script = ExtResource( 14 )
 
 [node name="Company" type="Node2D" parent="."]
 script = ExtResource( 12 )
+reputation = 0.05
 
 [node name="Units" type="Node2D" parent="Company"]
 
@@ -50,7 +51,7 @@ script = ExtResource( 12 )
 position = Vector2( 192, 167 )
 script = ExtResource( 10 )
 portrait = ExtResource( 3 )
-speed = 6
+speed = 20
 hired = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit"]
@@ -210,6 +211,7 @@ margin_left = -100.0
 margin_top = 25.0
 margin_right = 100.0
 margin_bottom = 43.0
+step = 0.0
 
 [node name="Tier" type="Label" parent="UI/Company/Reputation"]
 anchor_left = 0.5

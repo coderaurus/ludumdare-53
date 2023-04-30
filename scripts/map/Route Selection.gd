@@ -2,6 +2,7 @@ extends Control
 
 
 func open():
+	visible = true
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "rect_position", Vector2.UP * 200, 0.1).as_relative()
 	
@@ -9,8 +10,10 @@ func open():
 func _close(cancelled = true):
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "rect_position", Vector2.DOWN * 200, 0.1).as_relative()
+	visible = false
 	if cancelled:
 		System.game.cancel_routing()
+		$Confirm.visible = false
 
 
 func _confirm():
