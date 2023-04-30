@@ -17,17 +17,22 @@ onready var unit_type = $Assignee/Type
 var quest
 var unit
 var settlement
+var is_open = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 func open(st: Settlement, q:Quest, u: Unit = null):
+	if is_open:
+		return
+		
 	quest = q
 	settlement = st
 	
 	if u != null:
 		unit = u
+		select_unit(unit)
 	
 	title.text = q.quest_name
 	description.text = q.get_description()
@@ -37,6 +42,7 @@ func open(st: Settlement, q:Quest, u: Unit = null):
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "rect_position", Vector2.RIGHT * 400 , 0.1).as_relative()
+	is_open = true
 
 func _close():
 	var tween = get_tree().create_tween()
@@ -48,6 +54,7 @@ func _close():
 	unit_type = ""
 	
 	accept_button.disabled = true
+	is_open = false
 	
 	System.game.UI.selecting_quest = false
 	System.game.UI.clear_unit_selector()
@@ -60,7 +67,10 @@ func select_unit(u : Unit):
 	unit_stats.text = u.get_stats()
 	unit_type = u.unit_type_names[u.unit_type]
 	
-	accept_button.disabled = false
+	if !quest.active:
+		accept_button.disabled = false
+	else:
+		accept_button.disabled = true
 
 
 func _on_accept():

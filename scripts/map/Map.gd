@@ -54,6 +54,14 @@ func disable_settlement(st: Settlement):
 			System.game.UI.disable_settlement(i)
 			break
 
+func enable_settlement(st: Settlement):
+	for i in settlements.get_child_count():
+		var s = settlements.get_child(i)
+		
+		if s == st:
+			System.game.UI.enable_settlement(i)
+			break
+
 func settlement_unit_at(u: Unit):
 	for i in settlements.get_child_count():
 		var s = settlements.get_child(i)

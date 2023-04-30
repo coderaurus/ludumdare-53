@@ -9,6 +9,8 @@ onready var question = $Question
 onready var option_a = $"Option A"
 onready var option_b = $"Option B"
 
+var is_open = false
+
 func init(e: Event):
 	event_name = e.event_name
 	banner.texture = e.banner
@@ -18,12 +20,14 @@ func init(e: Event):
 	option_b.text = e.options[1]
 
 func open(st: Settlement, e:Event, unit: Unit = null):
+	if is_open:
+		return
 	
 	init(e)
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "rect_position", Vector2.DOWN * 320, 0.1).as_relative()
-	
+	is_open = true
 	# connect buttons?
 	# do something here
 
@@ -31,6 +35,7 @@ func open(st: Settlement, e:Event, unit: Unit = null):
 func _close():
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "rect_position", Vector2.UP * 320, 0.1).as_relative()
+	is_open = false
 
 
 func _on_option_a():

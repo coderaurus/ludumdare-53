@@ -34,6 +34,9 @@ func complete():
 		if used_days > asked_days:
 			rwd *= 0.75
 		
+		unit.at = null
+		unit.quest = null
+		
 		System.game.quest_complete(self, rwd)
 		return true
 	return false

@@ -60,8 +60,8 @@ func select_unit(unit):
 	quest_window.select_unit(unit)
 
 
-func open_quest(st: Settlement, quest: Quest):
-	quest_window.open(st, quest)
+func open_quest(st: Settlement, quest: Quest, u: Unit = null):
+	quest_window.open(st, quest, u)
 	selecting_quest = true
 	unit_selector.check_units()
 
