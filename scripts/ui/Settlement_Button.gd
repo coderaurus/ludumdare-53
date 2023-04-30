@@ -12,7 +12,8 @@ onready var event_marker = $EventMarker
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Name.text = s_node.settlement_name
+
 
 func _process(delta):
 	if rect_position != s_node.position:

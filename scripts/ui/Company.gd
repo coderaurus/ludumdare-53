@@ -30,7 +30,7 @@ func update():
 	if c_node.gold != int(gold.text):
 		change_gold(c_node.gold)
 	
-	print("%s != %s == %s" % [c_node.reputation, reputation_bar.value, c_node.reputation != reputation_bar.value])
+#	print("%s != %s == %s" % [c_node.reputation, reputation_bar.value, c_node.reputation != reputation_bar.value])
 	if c_node.reputation != reputation_bar.value:
 		change_reputation(c_node.reputation)
 	

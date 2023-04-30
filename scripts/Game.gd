@@ -51,14 +51,14 @@ func cancel_routing():
 func select_road(st : Settlement):
 	var last = null
 	var unit_at_r = map.get_road_by_unit(routing_unit, st)
-	
+	var conns = settlement_connections(st)
 	# You have entries on the list
 	print("Routing has %s routes" % routing_roads_selected.size())
 	if routing_roads_selected.size() > 0:
 		last = routing_roads_selected.size() - 1
 		var lr = routing_roads_selected[last]
 		var nr = map.get_road_to(st, last_st_added)
-		var conns = settlement_connections(st)
+		
 		# cannot find next road and last road has no connection to selected road
 		if nr == null and last > 0 and lr.s_node_a != st and lr.s_node_b != st \
 		and conns <= 1:
@@ -67,31 +67,44 @@ func select_road(st : Settlement):
 		elif (lr.s_node_a == st or lr.s_node_b == st) and conns <= 1:
 			var index = routing_roads_selected.find(lr)
 			lr.deselect()
+			lr.disable()
 			routing_roads_selected.pop_at(index)
 			close_neighbouring_settlements(st)
 			print("Road %s removed" % lr)
 			if routing_roads_selected.size() == 0:
 				last_r_added = null
 				last_st_added = null
-			check_destination(st)
+			else:
+				# take a step back 
+				last = routing_roads_selected.size() - 1
+				last_r_added = routing_roads_selected[last]
+				var not_st = lr.s_node_a
+				if not_st == st:
+					lr.s_node_b
+				last_st_added = not_st
+			check_destination(st, true)
 			return false
 		# new road
 		elif conns == 0:
-			lr = map.get_road_to(st, last_st_added)
+			if st != last_st_added:
+				nr = map.get_road_to(st, last_st_added)
 			
-			lr.select()
-			lr.enable()
-			routing_roads_selected.append(lr)
+			nr.select()
+			nr.enable()
+			routing_roads_selected.append(nr)
 			open_neighboring_settlements(st)
-			print("Road %s added" % lr)
+			print("Road %s added" % nr)
 			last_st_added = st
-			last_r_added = lr
+			last_r_added = nr
 			check_destination(st)
 			return true
 		else:
 			return true
 	# No entries on the list, add the one player is 
-	else:
+	# Unit is on road and st has connection to current unit st
+	# OR st has connection to quest origin
+	elif (unit_at_r != null and settlement_has_connection_to(st, routing_unit.at)) or \
+		settlement_has_connection_to(st, routing_quest.from):
 		var index = routing_roads_selected.find(unit_at_r)
 		routing_roads_selected.append(unit_at_r)
 		unit_at_r.select()
@@ -102,11 +115,26 @@ func select_road(st : Settlement):
 		last_r_added = unit_at_r
 		check_destination(st)
 		return true
+	else:
+		return false
 
 
-func check_destination(st):
+func settlement_has_connection_to(from, to):
+	# get roads connecting "from"
+	# does any road have "to"
+	var roads = map.get_roads_from(from)
+	for r in roads:
+		if r.s_node_a == to or r.s_node_b == to:
+			return true
+	return false
+
+
+func check_destination(st, st_removed = false):
 	if st == routing_quest.to:
-		UI.show_route_confirmation()
+		if !st_removed:
+			UI.show_route_confirmation()
+		else:
+			UI.hide_route_confirmation()
 	else:
 		UI.hide_route_confirmation()
 

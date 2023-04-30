@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scripts/ui/UIManager.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
@@ -37,6 +37,10 @@
 [ext_resource path="res://gfx/map/settlement_01.png" type="Texture" id=35]
 [ext_resource path="res://gfx/map/settlement_02.png" type="Texture" id=36]
 [ext_resource path="res://gfx/map/settlement_03.png" type="Texture" id=37]
+[ext_resource path="res://gfx/map/marker_6.png" type="Texture" id=38]
+[ext_resource path="res://gfx/map/marker_7.png" type="Texture" id=39]
+[ext_resource path="res://gfx/map/portraits/portrait_1.png" type="Texture" id=40]
+[ext_resource path="res://gfx/map/portraits/portrait_2.png" type="Texture" id=41]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.06226
@@ -176,7 +180,7 @@ s_path_b = NodePath("../../Settlements/Settlement3")
 position = Vector2( 358, 233 )
 script = ExtResource( 4 )
 contact_name = "John Jr."
-contact_profile = ExtResource( 3 )
+contact_profile = ExtResource( 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Settlements/Settlement"]
 shape = SubResource( 1 )
@@ -186,6 +190,7 @@ position = Vector2( 481, 188 )
 script = ExtResource( 4 )
 settlement_name = "Town 2"
 contact_name = "Johannes"
+contact_profile = ExtResource( 41 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Settlements/Settlement2"]
 shape = SubResource( 1 )
@@ -195,6 +200,7 @@ position = Vector2( 552, 67 )
 script = ExtResource( 4 )
 settlement_name = "Town 3"
 contact_name = "Johnette"
+contact_profile = ExtResource( 41 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Settlements/Settlement3"]
 shape = SubResource( 1 )
@@ -202,8 +208,9 @@ shape = SubResource( 1 )
 [node name="Settlement4" type="Area2D" parent="Map/Settlements"]
 position = Vector2( 598, 216 )
 script = ExtResource( 4 )
-settlement_name = "Town 3"
+settlement_name = "Town 4"
 contact_name = "Johnette"
+contact_profile = ExtResource( 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Settlements/Settlement4"]
 shape = SubResource( 1 )
@@ -318,6 +325,7 @@ margin_bottom = 40.0
 text = "Cancel"
 
 [node name="Confirm" type="Button" parent="UI/Route Selection"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -37.0
@@ -350,27 +358,21 @@ texture_normal = ExtResource( 37 )
 
 [node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 1"]
 visible = false
-modulate = Color( 1, 0.976471, 0.376471, 1 )
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 68.0
-margin_bottom = 68.0
-rect_scale = Vector2( 0.15, 0.15 )
-rect_pivot_offset = Vector2( 0, -16 )
+margin_left = 8.0
+margin_top = -23.0
+margin_right = 24.0
+margin_bottom = -7.0
 theme = ExtResource( 33 )
-texture = ExtResource( 3 )
+texture = ExtResource( 38 )
 
 [node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 1"]
 visible = false
-modulate = Color( 0.831373, 0.278431, 0.278431, 1 )
-margin_left = 4.0
-margin_top = 17.0
-margin_right = 68.0
-margin_bottom = 81.0
-rect_scale = Vector2( 0.15, 0.15 )
-rect_pivot_offset = Vector2( 0, -16 )
+margin_left = 8.0
+margin_top = -5.0
+margin_right = 24.0
+margin_bottom = 11.0
 theme = ExtResource( 33 )
-texture = ExtResource( 3 )
+texture = ExtResource( 39 )
 
 [node name="Name" type="Label" parent="UI/Settlements/Settlement 1"]
 margin_left = -36.0
@@ -400,27 +402,21 @@ texture_normal = ExtResource( 36 )
 
 [node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 2"]
 visible = false
-modulate = Color( 1, 0.976471, 0.376471, 1 )
-margin_left = 4.0
-margin_top = 3.60004
-margin_right = 68.0
-margin_bottom = 67.6
-rect_scale = Vector2( 0.15, 0.15 )
-rect_pivot_offset = Vector2( 0, -16 )
+margin_left = 16.0
+margin_top = -17.0
+margin_right = 32.0
+margin_bottom = -1.0
 theme = ExtResource( 33 )
-texture = ExtResource( 3 )
+texture = ExtResource( 38 )
 
 [node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 2"]
 visible = false
-modulate = Color( 0.831373, 0.278431, 0.278431, 1 )
-margin_left = 4.0
-margin_top = 16.6
-margin_right = 68.0
-margin_bottom = 80.6
-rect_scale = Vector2( 0.15, 0.15 )
-rect_pivot_offset = Vector2( 0, -16 )
+margin_left = 16.0
+margin_top = 1.0
+margin_right = 32.0
+margin_bottom = 17.0
 theme = ExtResource( 33 )
-texture = ExtResource( 3 )
+texture = ExtResource( 39 )
 
 [node name="Name" type="Label" parent="UI/Settlements/Settlement 2"]
 margin_left = -34.0
@@ -449,27 +445,21 @@ texture_normal = ExtResource( 37 )
 
 [node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 3"]
 visible = false
-modulate = Color( 1, 0.976471, 0.376471, 1 )
-margin_left = 4.0
-margin_top = 3.60004
-margin_right = 68.0
-margin_bottom = 67.6
-rect_scale = Vector2( 0.15, 0.15 )
-rect_pivot_offset = Vector2( 0, -16 )
+margin_left = 16.0
+margin_top = -20.0
+margin_right = 32.0
+margin_bottom = -4.0
 theme = ExtResource( 33 )
-texture = ExtResource( 3 )
+texture = ExtResource( 38 )
 
 [node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 3"]
 visible = false
-modulate = Color( 0.831373, 0.278431, 0.278431, 1 )
-margin_left = 4.0
-margin_top = 16.6
-margin_right = 68.0
-margin_bottom = 80.6
-rect_scale = Vector2( 0.15, 0.15 )
-rect_pivot_offset = Vector2( 0, -16 )
+margin_left = 16.0
+margin_top = -2.0
+margin_right = 32.0
+margin_bottom = 14.0
 theme = ExtResource( 33 )
-texture = ExtResource( 3 )
+texture = ExtResource( 39 )
 
 [node name="Name" type="Label" parent="UI/Settlements/Settlement 3"]
 margin_left = -32.0
@@ -499,27 +489,20 @@ texture_normal = ExtResource( 35 )
 
 [node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 4"]
 visible = false
-modulate = Color( 1, 0.976471, 0.376471, 1 )
-margin_left = 4.0
-margin_top = 3.60004
-margin_right = 68.0
-margin_bottom = 67.6
-rect_scale = Vector2( 0.15, 0.15 )
-rect_pivot_offset = Vector2( 0, -16 )
+margin_left = 12.0
+margin_top = -18.0
+margin_right = 28.0
+margin_bottom = -2.0
 theme = ExtResource( 33 )
-texture = ExtResource( 3 )
+texture = ExtResource( 38 )
 
 [node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 4"]
 visible = false
-modulate = Color( 0.831373, 0.278431, 0.278431, 1 )
-margin_left = 4.0
-margin_top = 16.6
-margin_right = 68.0
-margin_bottom = 80.6
-rect_scale = Vector2( 0.15, 0.15 )
-rect_pivot_offset = Vector2( 0, -16 )
+margin_left = 12.0
+margin_right = 28.0
+margin_bottom = 16.0
 theme = ExtResource( 33 )
-texture = ExtResource( 3 )
+texture = ExtResource( 39 )
 
 [node name="Name" type="Label" parent="UI/Settlements/Settlement 4"]
 margin_left = -32.0
@@ -1107,6 +1090,7 @@ theme = ExtResource( 33 )
 text = "OK"
 
 [node name="Start" type="Control" parent="UI"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 theme = ExtResource( 33 )

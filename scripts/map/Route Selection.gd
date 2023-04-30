@@ -4,12 +4,12 @@ extends Control
 func open():
 	visible = true
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "rect_position", Vector2.UP * 200, 0.1).as_relative()
+	tween.tween_property(self, "rect_position", Vector2.UP * 80, 0.1).as_relative()
 	
 	
 func _close(cancelled = true):
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "rect_position", Vector2.DOWN * 200, 0.1).as_relative()
+	tween.tween_property(self, "rect_position", Vector2.DOWN * 80, 0.1).as_relative()
 	visible = false
 	System.game.map.enable_settlement(System.game.routing_unit.at)
 	if cancelled:

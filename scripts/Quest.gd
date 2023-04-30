@@ -22,7 +22,7 @@ var reward = 25
 
 func get_description():
 	var text = "\"" 
-	text += " I need to get this %s to %s in %s days. You up for it for %s gold?" % \
+	text += " I need to get this %s to %s in %s days.\nYou up for it for %s gold?" % \
 			[goods_type_name[goods_type], to.settlement_name, asked_days, reward]
 	text += "\""
 	return text

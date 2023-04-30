@@ -16,7 +16,7 @@ func init(u: Unit):
 	
 	if not u.hired:
 		if !u.is_hirable():
-			$Profile.modulate = Color.darkgray
+			$Profile.modulate = Color(0.2, 0.2, 0.2)
 		else:
 			$Profile.modulate = Color.white
 
