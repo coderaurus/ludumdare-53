@@ -6,6 +6,9 @@ export var s_path : NodePath # settlement node
 onready var s_node = get_node(s_path)
 
 
+func _ready():
+	$TextureButton.texture_normal = s_node.portrait
+
 func _process(delta):
 	if rect_position != s_node.position:
 		rect_position = s_node.position

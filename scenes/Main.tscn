@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://scripts/ui/UIManager.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
@@ -25,6 +25,18 @@
 [ext_resource path="res://scripts/ui/End_Window.gd" type="Script" id=23]
 [ext_resource path="res://scripts/ui/Start_Window.gd" type="Script" id=24]
 [ext_resource path="res://scripts/DayTimer.gd" type="Script" id=25]
+[ext_resource path="res://gfx/map/unit_01.png" type="Texture" id=26]
+[ext_resource path="res://gfx/map/unit_02.png" type="Texture" id=27]
+[ext_resource path="res://gfx/map/unit_03.png" type="Texture" id=28]
+[ext_resource path="res://gfx/map/unit_04.png" type="Texture" id=29]
+[ext_resource path="res://gfx/start_banner_03.png" type="Texture" id=30]
+[ext_resource path="res://gfx/start_banner_02.png" type="Texture" id=31]
+[ext_resource path="res://gfx/start_banner_01.png" type="Texture" id=32]
+[ext_resource path="res://theme/theme.tres" type="Theme" id=33]
+[ext_resource path="res://theme/font/font_8.tres" type="DynamicFont" id=34]
+[ext_resource path="res://gfx/map/settlement_01.png" type="Texture" id=35]
+[ext_resource path="res://gfx/map/settlement_02.png" type="Texture" id=36]
+[ext_resource path="res://gfx/map/settlement_03.png" type="Texture" id=37]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.06226
@@ -58,8 +70,9 @@ reputation = 1.0
 [node name="Unit" type="Area2D" parent="Company/Units"]
 position = Vector2( 192, 167 )
 script = ExtResource( 10 )
-portrait = ExtResource( 3 )
-speed = 20
+portrait = ExtResource( 26 )
+speed = 5
+defense = 3
 hired = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit"]
@@ -68,9 +81,12 @@ shape = SubResource( 1 )
 [node name="Unit2" type="Area2D" parent="Company/Units"]
 position = Vector2( 192, 167 )
 script = ExtResource( 10 )
-portrait = ExtResource( 3 )
+portrait = ExtResource( 26 )
 unit_name = "Bob Sr."
-pay = 250
+speed = 4
+defense = 1
+charsima = 5
+pay = 300
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit2"]
 shape = SubResource( 1 )
@@ -78,9 +94,13 @@ shape = SubResource( 1 )
 [node name="Unit3" type="Area2D" parent="Company/Units"]
 position = Vector2( 192, 167 )
 script = ExtResource( 10 )
-portrait = ExtResource( 3 )
+portrait = ExtResource( 27 )
 unit_name = "Bobitte"
-pay = 250
+unit_type = 1
+speed = 10
+defense = 4
+charsima = 5
+pay = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit3"]
 shape = SubResource( 1 )
@@ -88,9 +108,12 @@ shape = SubResource( 1 )
 [node name="Unit4" type="Area2D" parent="Company/Units"]
 position = Vector2( 192, 167 )
 script = ExtResource( 10 )
-portrait = ExtResource( 3 )
+portrait = ExtResource( 28 )
 unit_name = "Boba"
-pay = 250
+unit_type = 2
+speed = 9
+defense = 10
+pay = 600
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit4"]
 shape = SubResource( 1 )
@@ -98,9 +121,13 @@ shape = SubResource( 1 )
 [node name="Unit5" type="Area2D" parent="Company/Units"]
 position = Vector2( 192, 167 )
 script = ExtResource( 10 )
-portrait = ExtResource( 3 )
+portrait = ExtResource( 29 )
 unit_name = "Bobocop"
-pay = 250
+unit_type = 3
+speed = 16
+defense = 3
+charsima = 10
+pay = 1000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit5"]
 shape = SubResource( 1 )
@@ -185,15 +212,18 @@ shape = SubResource( 1 )
 pause_mode = 2
 margin_right = 640.0
 margin_bottom = 319.0
+theme = ExtResource( 33 )
 script = ExtResource( 1 )
 menu_visible = false
 
 [node name="Log" type="Label" parent="UI"]
+visible = false
 modulate = Color( 1, 1, 1, 0.588235 )
 margin_left = 4.0
-margin_top = 198.0
-margin_right = 164.0
-margin_bottom = 318.0
+margin_top = 197.0
+margin_right = 172.0
+margin_bottom = 317.0
+theme = ExtResource( 33 )
 text = "X heading to B
 Y heading to C
 Z arrived to D"
@@ -205,6 +235,7 @@ anchor_right = 0.5
 margin_top = 5.0
 margin_right = 40.0
 margin_bottom = 45.0
+theme = ExtResource( 33 )
 script = ExtResource( 13 )
 c_path = NodePath("../../Company")
 
@@ -215,6 +246,7 @@ margin_left = -49.5
 margin_top = 5.0
 margin_right = 49.5
 margin_bottom = 19.0
+theme = ExtResource( 33 )
 text = "Company name"
 align = 1
 
@@ -222,33 +254,37 @@ align = 1
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -100.0
-margin_top = 25.0
+margin_top = 20.0
 margin_right = 100.0
-margin_bottom = 43.0
+margin_bottom = 38.0
+theme = ExtResource( 33 )
 step = 0.0
 
 [node name="Tier" type="Label" parent="UI/Company/Reputation"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -100.0
-margin_top = 18.0
+margin_top = 21.0
 margin_right = 100.0
-margin_bottom = 32.0
+margin_bottom = 35.0
+theme = ExtResource( 33 )
 text = "Reputation tier"
 align = 1
 
 [node name="Gold" type="Label" parent="UI"]
-margin_left = 480.0
+margin_left = 4.0
 margin_top = 302.0
-margin_right = 582.0
+margin_right = 116.0
 margin_bottom = 316.0
+theme = ExtResource( 33 )
 text = "Gold: 99999999"
 
 [node name="Days" type="Label" parent="UI"]
-margin_left = 182.0
-margin_top = 9.0
-margin_right = 234.0
-margin_bottom = 23.0
+margin_left = 578.0
+margin_top = 7.0
+margin_right = 634.0
+margin_bottom = 21.0
+theme = ExtResource( 33 )
 text = "Day 256"
 
 [node name="Route Selection" type="Control" parent="UI"]
@@ -260,6 +296,7 @@ margin_left = -20.0
 margin_top = 21.0
 margin_right = 20.0
 margin_bottom = 61.0
+theme = ExtResource( 33 )
 script = ExtResource( 22 )
 
 [node name="Hint" type="Label" parent="UI/Route Selection"]
@@ -268,46 +305,48 @@ anchor_right = 0.5
 margin_left = -112.0
 margin_right = 112.0
 margin_bottom = 14.0
+custom_fonts/font = ExtResource( 34 )
 text = "Select road by clicking settlements"
 
 [node name="Button" type="Button" parent="UI/Route Selection"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -58.0
+margin_left = -37.0
 margin_top = 20.0
-margin_right = 58.0
+margin_right = 79.0
 margin_bottom = 40.0
-text = "Cancel selecting"
+text = "Cancel"
 
 [node name="Confirm" type="Button" parent="UI/Route Selection"]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -58.0
+margin_left = -37.0
 margin_top = 45.0
-margin_right = 58.0
+margin_right = 79.0
 margin_bottom = 65.0
 text = "GO"
 
 [node name="Settlements" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 
 [node name="Settlement 1" type="Control" parent="UI/Settlements"]
 margin_left = 337.0
 margin_top = 216.0
 margin_right = 377.0
 margin_bottom = 256.0
+theme = ExtResource( 33 )
 script = ExtResource( 6 )
 s_path = NodePath("../../../Map/Settlements/Settlement")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Settlements/Settlement 1"]
-modulate = Color( 0.305882, 0.698039, 0.160784, 1 )
-margin_right = 64.0
-margin_bottom = 64.0
-rect_scale = Vector2( 0.25, 0.25 )
-rect_pivot_offset = Vector2( -8, -8 )
-texture_normal = ExtResource( 3 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+theme = ExtResource( 33 )
+texture_normal = ExtResource( 37 )
 
 [node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 1"]
 visible = false
@@ -318,6 +357,7 @@ margin_right = 68.0
 margin_bottom = 68.0
 rect_scale = Vector2( 0.15, 0.15 )
 rect_pivot_offset = Vector2( 0, -16 )
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
 
 [node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 1"]
@@ -329,23 +369,34 @@ margin_right = 68.0
 margin_bottom = 81.0
 rect_scale = Vector2( 0.15, 0.15 )
 rect_pivot_offset = Vector2( 0, -16 )
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
+
+[node name="Name" type="Label" parent="UI/Settlements/Settlement 1"]
+margin_left = -36.0
+margin_top = 17.0
+margin_right = 36.0
+margin_bottom = 25.0
+theme = ExtResource( 33 )
+custom_fonts/font = ExtResource( 34 )
+text = "Town Name"
 
 [node name="Settlement 2" type="Control" parent="UI/Settlements"]
 margin_left = 467.0
 margin_top = 165.0
 margin_right = 507.0
 margin_bottom = 205.0
+theme = ExtResource( 33 )
 script = ExtResource( 6 )
 s_path = NodePath("../../../Map/Settlements/Settlement2")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Settlements/Settlement 2"]
-modulate = Color( 0.305882, 0.698039, 0.160784, 1 )
-margin_right = 64.0
-margin_bottom = 64.0
-rect_scale = Vector2( 0.25, 0.25 )
-rect_pivot_offset = Vector2( -8, -8 )
-texture_normal = ExtResource( 3 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+theme = ExtResource( 33 )
+texture_normal = ExtResource( 36 )
 
 [node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 2"]
 visible = false
@@ -356,6 +407,7 @@ margin_right = 68.0
 margin_bottom = 67.6
 rect_scale = Vector2( 0.15, 0.15 )
 rect_pivot_offset = Vector2( 0, -16 )
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
 
 [node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 2"]
@@ -367,23 +419,33 @@ margin_right = 68.0
 margin_bottom = 80.6
 rect_scale = Vector2( 0.15, 0.15 )
 rect_pivot_offset = Vector2( 0, -16 )
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
+
+[node name="Name" type="Label" parent="UI/Settlements/Settlement 2"]
+margin_left = -34.0
+margin_top = 23.0
+margin_right = 38.0
+margin_bottom = 31.0
+theme = ExtResource( 33 )
+text = "Town Name"
 
 [node name="Settlement 3" type="Control" parent="UI/Settlements"]
 margin_left = 384.0
 margin_top = 128.0
 margin_right = 424.0
 margin_bottom = 168.0
+theme = ExtResource( 33 )
 script = ExtResource( 6 )
 s_path = NodePath("../../../Map/Settlements/Settlement3")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Settlements/Settlement 3"]
-modulate = Color( 0.305882, 0.698039, 0.160784, 1 )
-margin_right = 64.0
-margin_bottom = 64.0
-rect_scale = Vector2( 0.25, 0.25 )
-rect_pivot_offset = Vector2( -8, -8 )
-texture_normal = ExtResource( 3 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+theme = ExtResource( 33 )
+texture_normal = ExtResource( 37 )
 
 [node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 3"]
 visible = false
@@ -394,6 +456,7 @@ margin_right = 68.0
 margin_bottom = 67.6
 rect_scale = Vector2( 0.15, 0.15 )
 rect_pivot_offset = Vector2( 0, -16 )
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
 
 [node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 3"]
@@ -405,23 +468,34 @@ margin_right = 68.0
 margin_bottom = 80.6
 rect_scale = Vector2( 0.15, 0.15 )
 rect_pivot_offset = Vector2( 0, -16 )
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
 
+[node name="Name" type="Label" parent="UI/Settlements/Settlement 3"]
+margin_left = -32.0
+margin_top = 19.0
+margin_right = 40.0
+margin_bottom = 27.0
+theme = ExtResource( 33 )
+text = "Town Name"
+
 [node name="Settlement 4" type="Control" parent="UI/Settlements"]
-margin_left = 384.0
-margin_top = 128.0
-margin_right = 424.0
-margin_bottom = 168.0
+margin_left = 481.0
+margin_top = 61.0
+margin_right = 521.0
+margin_bottom = 101.0
+theme = ExtResource( 33 )
 script = ExtResource( 6 )
 s_path = NodePath("../../../Map/Settlements/Settlement4")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Settlements/Settlement 4"]
-modulate = Color( 0.305882, 0.698039, 0.160784, 1 )
-margin_right = 64.0
-margin_bottom = 64.0
-rect_scale = Vector2( 0.25, 0.25 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
 rect_pivot_offset = Vector2( -8, -8 )
-texture_normal = ExtResource( 3 )
+theme = ExtResource( 33 )
+texture_normal = ExtResource( 35 )
 
 [node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 4"]
 visible = false
@@ -432,6 +506,7 @@ margin_right = 68.0
 margin_bottom = 67.6
 rect_scale = Vector2( 0.15, 0.15 )
 rect_pivot_offset = Vector2( 0, -16 )
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
 
 [node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 4"]
@@ -443,86 +518,107 @@ margin_right = 68.0
 margin_bottom = 80.6
 rect_scale = Vector2( 0.15, 0.15 )
 rect_pivot_offset = Vector2( 0, -16 )
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
+
+[node name="Name" type="Label" parent="UI/Settlements/Settlement 4"]
+margin_left = -32.0
+margin_top = 25.0
+margin_right = 40.0
+margin_bottom = 33.0
+theme = ExtResource( 33 )
+text = "Town Name"
 
 [node name="Units" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 
 [node name="Unit 1" type="Control" parent="UI/Units"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 script = ExtResource( 9 )
 s_path = NodePath("../../../Company/Units/Unit")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Units/Unit 1"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.25, 0.25 )
-rect_pivot_offset = Vector2( -8, -8 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
 
 [node name="Unit 2" type="Control" parent="UI/Units"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 script = ExtResource( 9 )
 s_path = NodePath("../../../Company/Units/Unit2")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Units/Unit 2"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.25, 0.25 )
-rect_pivot_offset = Vector2( -8, -8 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
 
 [node name="Unit 3" type="Control" parent="UI/Units"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 script = ExtResource( 9 )
 s_path = NodePath("../../../Company/Units/Unit3")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Units/Unit 3"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.25, 0.25 )
-rect_pivot_offset = Vector2( -8, -8 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
 
 [node name="Unit 4" type="Control" parent="UI/Units"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 script = ExtResource( 9 )
 s_path = NodePath("../../../Company/Units/Unit4")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Units/Unit 4"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.25, 0.25 )
-rect_pivot_offset = Vector2( -8, -8 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
 
 [node name="Unit 5" type="Control" parent="UI/Units"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 script = ExtResource( 9 )
 s_path = NodePath("../../../Company/Units/Unit5")
 
 [node name="TextureButton" type="TextureButton" parent="UI/Units/Unit 5"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.25, 0.25 )
-rect_pivot_offset = Vector2( -8, -8 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
 
 [node name="Menu" type="Control" parent="UI"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 
 [node name="Settings" type="Panel" parent="UI/Menu"]
 modulate = Color( 1, 1, 1, 0 )
@@ -530,12 +626,14 @@ margin_left = 249.0
 margin_top = 159.0
 margin_right = 633.0
 margin_bottom = 313.0
+theme = ExtResource( 33 )
 
 [node name="Label" type="Label" parent="UI/Menu/Settings"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 56.0
 margin_bottom = 19.0
+theme = ExtResource( 33 )
 text = "Settings"
 
 [node name="Sound" type="Control" parent="UI/Menu/Settings"]
@@ -543,21 +641,25 @@ margin_left = 64.0
 margin_top = 52.0
 margin_right = 104.0
 margin_bottom = 92.0
+theme = ExtResource( 33 )
 
 [node name="Button" type="Button" parent="UI/Menu/Settings/Sound"]
 margin_right = 39.0
 margin_bottom = 20.0
+theme = ExtResource( 33 )
 
 [node name="Slider" type="HSlider" parent="UI/Menu/Settings/Sound"]
 margin_left = 45.0
 margin_top = 2.0
 margin_right = 247.0
 margin_bottom = 18.0
+theme = ExtResource( 33 )
 
 [node name="Label" type="Label" parent="UI/Menu/Settings/Sound"]
 margin_top = -17.0
 margin_right = 40.0
 margin_bottom = -3.0
+theme = ExtResource( 33 )
 text = "Sound"
 
 [node name="Music" type="Control" parent="UI/Menu/Settings"]
@@ -565,114 +667,136 @@ margin_left = 64.0
 margin_top = 107.0
 margin_right = 104.0
 margin_bottom = 147.0
+theme = ExtResource( 33 )
 
 [node name="Button" type="Button" parent="UI/Menu/Settings/Music"]
 margin_right = 40.0
 margin_bottom = 20.0
+theme = ExtResource( 33 )
 
 [node name="Slider" type="HSlider" parent="UI/Menu/Settings/Music"]
 margin_left = 45.0
 margin_top = 2.0
 margin_right = 247.0
 margin_bottom = 18.0
+theme = ExtResource( 33 )
 
 [node name="Label" type="Label" parent="UI/Menu/Settings/Music"]
 margin_top = -17.0
 margin_right = 40.0
 margin_bottom = -3.0
+theme = ExtResource( 33 )
 text = "Music"
 
 [node name="Quest" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 
 [node name="Window" type="Panel" parent="UI/Quest"]
 margin_left = -377.0
 margin_top = 36.0
 margin_right = -11.0
 margin_bottom = 267.0
+theme = ExtResource( 33 )
 script = ExtResource( 18 )
 
 [node name="Title" type="Label" parent="UI/Quest/Window"]
-margin_left = 142.0
-margin_top = 4.0
-margin_right = 223.0
-margin_bottom = 18.0
+margin_left = 52.0
+margin_top = 7.0
+margin_right = 309.0
+margin_bottom = 21.0
+theme = ExtResource( 33 )
 text = "Quest Name"
+align = 1
 
 [node name="Description" type="Label" parent="UI/Quest/Window"]
-margin_left = 134.0
+margin_left = 86.0
 margin_top = 36.0
 margin_right = 359.0
 margin_bottom = 96.0
+theme = ExtResource( 33 )
 text = "\"I need X delivered to Y.
  The reward is 150 gold pieces\""
 autowrap = true
 
 [node name="Contact" type="Control" parent="UI/Quest/Window"]
-margin_left = 46.0
+margin_left = 9.0
 margin_top = 29.0
-margin_right = 86.0
+margin_right = 49.0
 margin_bottom = 69.0
+theme = ExtResource( 33 )
 
 [node name="Profile" type="TextureRect" parent="UI/Quest/Window/Contact"]
 margin_left = 5.0
 margin_top = 3.0
 margin_right = 69.0
 margin_bottom = 67.0
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
 
 [node name="Name" type="Label" parent="UI/Quest/Window/Contact"]
 margin_left = 5.0
-margin_top = 58.0
+margin_top = 45.0
 margin_right = 68.0
-margin_bottom = 72.0
+margin_bottom = 67.0
+theme = ExtResource( 33 )
 text = "John"
 align = 2
+valign = 2
 
 [node name="Assignee" type="Control" parent="UI/Quest/Window"]
 margin_left = 21.0
 margin_top = 137.0
 margin_right = 61.0
 margin_bottom = 177.0
+theme = ExtResource( 33 )
 
 [node name="Header" type="Label" parent="UI/Quest/Window/Assignee"]
 margin_left = -11.0
 margin_top = -17.0
-margin_right = 51.0
+margin_right = 282.0
 margin_bottom = -3.0
-text = "Assignee: *select a unit below*"
+theme = ExtResource( 33 )
+text = "Assignee (select a unit below):"
 
 [node name="Profile" type="TextureRect" parent="UI/Quest/Window/Assignee"]
-margin_left = -5.0
-margin_top = 4.0
-margin_right = 59.0
-margin_bottom = 68.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = -6.0
+margin_top = 8.0
+margin_right = 58.0
+margin_bottom = 72.0
+theme = ExtResource( 33 )
 
 [node name="Type" type="Label" parent="UI/Quest/Window/Assignee"]
-margin_left = -11.0
-margin_top = 40.0
-margin_right = 36.0
-margin_bottom = 54.0
+margin_left = -6.0
+margin_top = 70.0
+margin_right = 59.0
+margin_bottom = 84.0
+theme = ExtResource( 33 )
+custom_fonts/font = ExtResource( 34 )
 
 [node name="Name" type="Label" parent="UI/Quest/Window/Assignee"]
-margin_left = 52.0
+margin_left = 73.0
 margin_top = 6.0
-margin_right = 107.0
+margin_right = 190.0
 margin_bottom = 20.0
+theme = ExtResource( 33 )
+custom_fonts/font = ExtResource( 34 )
 
 [node name="Stats" type="Label" parent="UI/Quest/Window/Assignee"]
-margin_left = 53.0
+margin_left = 73.0
 margin_top = 21.0
-margin_right = 161.0
+margin_right = 195.0
 margin_bottom = 86.0
+theme = ExtResource( 33 )
+custom_fonts/font = ExtResource( 34 )
 
 [node name="AcceptButton" type="Button" parent="UI/Quest/Window"]
 margin_left = 230.0
 margin_top = 169.0
 margin_right = 359.0
 margin_bottom = 195.0
+theme = ExtResource( 33 )
 text = "Accept Quest"
 
 [node name="Cancel" type="Button" parent="UI/Quest/Window"]
@@ -680,17 +804,20 @@ margin_left = 230.0
 margin_top = 199.0
 margin_right = 359.0
 margin_bottom = 225.0
+theme = ExtResource( 33 )
 text = "Cancel"
 
 [node name="Settlement" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 
 [node name="Window" type="Panel" parent="UI/Settlement"]
 margin_left = 645.0
 margin_top = 35.0
 margin_right = 815.0
 margin_bottom = 264.0
+theme = ExtResource( 33 )
 script = ExtResource( 5 )
 
 [node name="Name" type="Label" parent="UI/Settlement/Window"]
@@ -698,6 +825,7 @@ margin_left = 6.0
 margin_top = 7.0
 margin_right = 165.0
 margin_bottom = 34.0
+theme = ExtResource( 33 )
 text = "Nogob Town"
 valign = 1
 
@@ -706,6 +834,7 @@ margin_left = 7.0
 margin_top = 40.0
 margin_right = 109.0
 margin_bottom = 54.0
+theme = ExtResource( 33 )
 text = "*Not visited yet"
 align = 1
 
@@ -714,6 +843,7 @@ margin_left = 6.0
 margin_top = 111.0
 margin_right = 91.0
 margin_bottom = 176.0
+theme = ExtResource( 33 )
 text = "Known for:
 - Goblin hate
 - Dragon fear
@@ -724,127 +854,142 @@ margin_left = 27.0
 margin_top = 203.0
 margin_right = 142.0
 margin_bottom = 223.0
+theme = ExtResource( 33 )
 text = "OK"
 
 [node name="Unit Selector" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 
 [node name="Window" type="Panel" parent="UI/Unit Selector"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 178.0
+margin_left = 184.0
 margin_top = 250.0
-margin_right = 459.0
+margin_right = 443.0
 margin_bottom = 290.0
+theme = ExtResource( 33 )
 script = ExtResource( 21 )
 
 [node name="Unit" type="Control" parent="UI/Unit Selector/Window"]
-margin_left = 19.0
+margin_left = 8.0
 margin_top = -7.0
-margin_right = 59.0
+margin_right = 48.0
 margin_bottom = 33.0
+theme = ExtResource( 33 )
 script = ExtResource( 20 )
-
-[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit"]
-margin_top = -15.0
-margin_right = 40.0
-margin_bottom = -1.0
-text = "Status"
 
 [node name="Profile" type="TextureButton" parent="UI/Unit Selector/Window/Unit"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_top = -15.0
+margin_right = 64.0
+margin_bottom = 49.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
+
+[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit"]
+margin_top = -5.0
+margin_right = 48.0
+margin_bottom = 9.0
+theme = ExtResource( 33 )
 
 [node name="Unit2" type="Control" parent="UI/Unit Selector/Window"]
-margin_left = 64.0
+margin_left = 53.0
 margin_top = -7.0
-margin_right = 104.0
+margin_right = 93.0
 margin_bottom = 33.0
+theme = ExtResource( 33 )
 script = ExtResource( 20 )
-
-[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit2"]
-margin_top = -15.0
-margin_right = 40.0
-margin_bottom = -1.0
-text = "Status"
 
 [node name="Profile" type="TextureButton" parent="UI/Unit Selector/Window/Unit2"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_top = -15.0
+margin_right = 64.0
+margin_bottom = 49.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
+
+[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit2"]
+margin_top = -5.0
+margin_right = 48.0
+margin_bottom = 9.0
+theme = ExtResource( 33 )
 
 [node name="Unit3" type="Control" parent="UI/Unit Selector/Window"]
-margin_left = 109.0
+margin_left = 98.0
 margin_top = -7.0
-margin_right = 149.0
+margin_right = 138.0
 margin_bottom = 33.0
+theme = ExtResource( 33 )
 script = ExtResource( 20 )
-
-[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit3"]
-margin_top = -15.0
-margin_right = 40.0
-margin_bottom = -1.0
-text = "Status"
 
 [node name="Profile" type="TextureButton" parent="UI/Unit Selector/Window/Unit3"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_top = -15.0
+margin_right = 64.0
+margin_bottom = 49.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
+
+[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit3"]
+margin_top = -5.0
+margin_right = 48.0
+margin_bottom = 9.0
+theme = ExtResource( 33 )
 
 [node name="Unit4" type="Control" parent="UI/Unit Selector/Window"]
-margin_left = 156.0
+margin_left = 145.0
 margin_top = -8.0
-margin_right = 196.0
+margin_right = 185.0
 margin_bottom = 32.0
+theme = ExtResource( 33 )
 script = ExtResource( 20 )
-
-[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit4"]
-margin_top = -15.0
-margin_right = 40.0
-margin_bottom = -1.0
-text = "Status"
 
 [node name="Profile" type="TextureButton" parent="UI/Unit Selector/Window/Unit4"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_top = -15.0
+margin_right = 64.0
+margin_bottom = 49.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
+
+[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit4"]
+margin_top = -5.0
+margin_right = 48.0
+margin_bottom = 9.0
+theme = ExtResource( 33 )
 
 [node name="Unit5" type="Control" parent="UI/Unit Selector/Window"]
-margin_left = 202.0
+margin_left = 191.0
 margin_top = -8.0
-margin_right = 242.0
+margin_right = 231.0
 margin_bottom = 32.0
+theme = ExtResource( 33 )
 script = ExtResource( 20 )
 
-[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit5"]
-margin_top = -15.0
-margin_right = 40.0
-margin_bottom = -1.0
-text = "Status"
-
 [node name="Profile" type="TextureButton" parent="UI/Unit Selector/Window/Unit5"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_top = -15.0
+margin_right = 64.0
+margin_bottom = 49.0
+theme = ExtResource( 33 )
 texture_normal = ExtResource( 3 )
+
+[node name="Status" type="Label" parent="UI/Unit Selector/Window/Unit5"]
+margin_top = -5.0
+margin_right = 48.0
+margin_bottom = 9.0
+theme = ExtResource( 33 )
 
 [node name="Event" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 
 [node name="Window" type="Panel" parent="UI/Event"]
 margin_left = 99.0
 margin_top = -304.0
 margin_right = 561.0
 margin_bottom = -14.0
+theme = ExtResource( 33 )
 script = ExtResource( 16 )
 
 [node name="Name" type="Label" parent="UI/Event/Window"]
@@ -852,6 +997,7 @@ margin_left = 183.0
 margin_top = 76.0
 margin_right = 281.0
 margin_bottom = 90.0
+theme = ExtResource( 33 )
 text = "Oh no, bandits!"
 
 [node name="Banner" type="TextureRect" parent="UI/Event/Window"]
@@ -859,6 +1005,7 @@ margin_left = 199.0
 margin_top = 6.0
 margin_right = 263.0
 margin_bottom = 70.0
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
 
 [node name="Description" type="Label" parent="UI/Event/Window"]
@@ -866,6 +1013,7 @@ margin_left = 11.0
 margin_top = 98.0
 margin_right = 446.0
 margin_bottom = 163.0
+theme = ExtResource( 33 )
 text = "\"You encounter bandits!
 They demand your belongings for your well being.\""
 
@@ -874,6 +1022,7 @@ margin_left = 37.0
 margin_top = 184.0
 margin_right = 420.0
 margin_bottom = 251.0
+theme = ExtResource( 33 )
 text = "Give up your goods and abandon quest? Or defend yourself?"
 
 [node name="Option A" type="Button" parent="UI/Event/Window"]
@@ -881,6 +1030,7 @@ margin_left = 92.0
 margin_top = 217.0
 margin_right = 361.0
 margin_bottom = 247.0
+theme = ExtResource( 33 )
 text = "Give goods"
 
 [node name="Option B" type="Button" parent="UI/Event/Window"]
@@ -888,46 +1038,52 @@ margin_left = 92.0
 margin_top = 251.0
 margin_right = 360.0
 margin_bottom = 281.0
+theme = ExtResource( 33 )
 text = "Defend yourself"
 
 [node name="Unit" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 
 [node name="Window" type="Panel" parent="UI/Unit"]
 margin_left = 257.0
 margin_top = 334.0
 margin_right = 427.0
 margin_bottom = 523.0
+theme = ExtResource( 33 )
 script = ExtResource( 11 )
 
 [node name="Profile" type="TextureRect" parent="UI/Unit/Window"]
-margin_left = 10.0
-margin_top = 8.0
-margin_right = 74.0
-margin_bottom = 72.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 65.0
+margin_bottom = 65.0
+theme = ExtResource( 33 )
 texture = ExtResource( 3 )
 
 [node name="Type" type="Label" parent="UI/Unit/Window"]
-margin_left = 55.0
+margin_left = 71.0
 margin_top = 25.0
-margin_right = 102.0
+margin_right = 165.0
 margin_bottom = 39.0
+theme = ExtResource( 33 )
 text = "Ground"
 
 [node name="Name" type="Label" parent="UI/Unit/Window"]
-margin_left = 56.0
+margin_left = 70.0
 margin_top = 9.0
-margin_right = 111.0
+margin_right = 165.0
 margin_bottom = 23.0
+theme = ExtResource( 33 )
 text = "Mailman"
 
 [node name="Stats" type="Label" parent="UI/Unit/Window"]
-margin_left = 11.0
-margin_top = 54.0
-margin_right = 119.0
-margin_bottom = 119.0
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 155.0
+margin_bottom = 153.0
+theme = ExtResource( 33 )
 text = "Reputation: Shun
 Speed: 5
 Defense: 2
@@ -939,6 +1095,7 @@ margin_left = 16.0
 margin_top = 135.0
 margin_right = 154.0
 margin_bottom = 155.0
+theme = ExtResource( 33 )
 text = "Hire"
 
 [node name="OK Button" type="Button" parent="UI/Unit/Window"]
@@ -946,56 +1103,80 @@ margin_left = 16.0
 margin_top = 160.0
 margin_right = 154.0
 margin_bottom = 180.0
+theme = ExtResource( 33 )
 text = "OK"
 
 [node name="Start" type="Control" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
+
+[node name="Panel" type="Panel" parent="UI/Start"]
+modulate = Color( 1, 1, 1, 0.882353 )
+margin_left = -6.0
+margin_top = -4.0
+margin_right = 650.0
+margin_bottom = 324.0
 
 [node name="Window" type="Panel" parent="UI/Start"]
 margin_left = 57.0
 margin_top = 26.0
 margin_right = 587.0
 margin_bottom = 293.0
+theme = ExtResource( 33 )
 script = ExtResource( 24 )
+
+[node name="TextureRect" type="TextureRect" parent="UI/Start/Window"]
+margin_left = 74.0
+margin_top = 8.0
+margin_right = 324.0
+margin_bottom = 108.0
+rect_scale = Vector2( 1.5, 1.5 )
+theme = ExtResource( 33 )
+texture = ExtResource( 32 )
 
 [node name="Header" type="Label" parent="UI/Start/Window"]
 margin_left = 165.0
-margin_top = 91.0
+margin_top = 122.0
 margin_right = 355.0
-margin_bottom = 105.0
+margin_bottom = 136.0
+theme = ExtResource( 33 )
 text = "Welcome!"
 align = 1
 
 [node name="Brief" type="Label" parent="UI/Start/Window"]
 margin_left = 18.0
-margin_top = 117.0
+margin_top = 148.0
 margin_right = 515.0
-margin_bottom = 182.0
+margin_bottom = 213.0
+theme = ExtResource( 33 )
 text = "You have obtained the Ring of Kings, the one which marks  rule over all the kingdoms. Against your evil will, and to your surprise, you decide to deliver this ring to the King, a human. Eww."
 autowrap = true
 
 [node name="Brief2" type="Label" parent="UI/Start/Window"]
 margin_left = 20.0
-margin_top = 173.0
+margin_top = 204.0
 margin_right = 396.0
-margin_bottom = 221.0
+margin_bottom = 252.0
+theme = ExtResource( 33 )
 text = "But for a monster to be able to see the King, you have to gain the trust of humans first. You came up with a plan..."
 autowrap = true
 
 [node name="Brief3" type="Label" parent="UI/Start/Window"]
 margin_left = 20.0
-margin_top = 216.0
+margin_top = 247.0
 margin_right = 503.0
-margin_bottom = 237.0
+margin_bottom = 268.0
+theme = ExtResource( 33 )
 text = "A courier guild for monsters!"
 autowrap = true
 
 [node name="Brief4" type="Label" parent="UI/Start/Window"]
-margin_left = 432.0
-margin_top = 243.0
-margin_right = 454.0
-margin_bottom = 257.0
+margin_left = 426.0
+margin_top = 249.0
+margin_right = 453.0
+margin_bottom = 263.0
+theme = ExtResource( 33 )
 text = "1/3"
 align = 2
 autowrap = true
@@ -1005,6 +1186,7 @@ margin_left = 459.0
 margin_top = 229.0
 margin_right = 521.0
 margin_bottom = 259.0
+theme = ExtResource( 33 )
 text = "Next"
 
 [node name="Window2" type="Panel" parent="UI/Start"]
@@ -1012,29 +1194,41 @@ margin_left = 664.0
 margin_top = 26.0
 margin_right = 1194.0
 margin_bottom = 293.0
+theme = ExtResource( 33 )
+
+[node name="TextureRect" type="TextureRect" parent="UI/Start/Window2"]
+margin_left = 97.0
+margin_top = 6.0
+margin_right = 347.0
+margin_bottom = 106.0
+rect_scale = Vector2( 1.5, 1.5 )
+theme = ExtResource( 33 )
+texture = ExtResource( 31 )
 
 [node name="Header" type="Label" parent="UI/Start/Window2"]
 margin_left = 165.0
-margin_top = 91.0
+margin_top = 125.0
 margin_right = 355.0
-margin_bottom = 105.0
-text = "Quick instructions!"
+margin_bottom = 139.0
+theme = ExtResource( 33 )
+text = "Quick Instructions"
 align = 1
 
 [node name="Brief" type="Label" parent="UI/Start/Window2"]
 margin_left = 18.0
-margin_top = 117.0
+margin_top = 143.0
 margin_right = 515.0
-margin_bottom = 182.0
-text = "Goal is to reach high enough reputation to get an audience with the King.
-For this you have to make deliveries - or how we call them, quests - all over the kingdom."
+margin_bottom = 208.0
+theme = ExtResource( 33 )
+text = "Goal is to get enough reputation to have an audience with the King. For this you have to make deliveries or quests all over the kingdom."
 autowrap = true
 
 [node name="Brief2" type="Label" parent="UI/Start/Window2"]
 margin_left = 20.0
-margin_top = 173.0
+margin_top = 182.0
 margin_right = 516.0
-margin_bottom = 221.0
+margin_bottom = 230.0
+theme = ExtResource( 33 )
 text = "Select a settlement which has a quest waiting, assign one of your underlings to the task and give them the best route to follow. They will execute your order with haste."
 autowrap = true
 
@@ -1043,14 +1237,17 @@ margin_left = 20.0
 margin_top = 229.0
 margin_right = 503.0
 margin_bottom = 250.0
-text = "You only have one underling, though... Consider  hiring more."
+theme = ExtResource( 33 )
+text = "You only have one underling, though... 
+Consider hiring more."
 autowrap = true
 
 [node name="Brief5" type="Label" parent="UI/Start/Window2"]
-margin_left = 432.0
-margin_top = 243.0
-margin_right = 454.0
-margin_bottom = 257.0
+margin_left = 428.0
+margin_top = 249.0
+margin_right = 455.0
+margin_bottom = 263.0
+theme = ExtResource( 33 )
 text = "2/3"
 align = 2
 autowrap = true
@@ -1060,6 +1257,7 @@ margin_left = 459.0
 margin_top = 229.0
 margin_right = 521.0
 margin_bottom = 259.0
+theme = ExtResource( 33 )
 text = "Next"
 
 [node name="Window3" type="Panel" parent="UI/Start"]
@@ -1067,44 +1265,59 @@ margin_left = 1229.0
 margin_top = 26.0
 margin_right = 1759.0
 margin_bottom = 293.0
+theme = ExtResource( 33 )
+
+[node name="TextureRect" type="TextureRect" parent="UI/Start/Window3"]
+margin_left = 68.0
+margin_top = 12.0
+margin_right = 318.0
+margin_bottom = 112.0
+rect_scale = Vector2( 1.5, 1.5 )
+theme = ExtResource( 33 )
+texture = ExtResource( 30 )
 
 [node name="Header" type="Label" parent="UI/Start/Window3"]
 margin_left = 165.0
-margin_top = 91.0
+margin_top = 134.0
 margin_right = 355.0
-margin_bottom = 105.0
-text = "One last thing..."
+margin_bottom = 148.0
+theme = ExtResource( 33 )
+text = "One Last Thing"
 align = 1
 
 [node name="Brief" type="Label" parent="UI/Start/Window3"]
 margin_left = 18.0
-margin_top = 117.0
+margin_top = 153.0
 margin_right = 515.0
-margin_bottom = 182.0
+margin_bottom = 202.0
+theme = ExtResource( 33 )
 text = "Before you start your pitiful journey as a human bidgeon, one vital detail is still missing."
 autowrap = true
 
 [node name="Brief2" type="Label" parent="UI/Start/Window3"]
 margin_left = 17.0
-margin_top = 153.0
+margin_top = 185.0
 margin_right = 513.0
-margin_bottom = 167.0
+margin_bottom = 199.0
+theme = ExtResource( 33 )
 text = "How do you want to be called?"
 autowrap = true
 
 [node name="Guild Name Header" type="Label" parent="UI/Start/Window3"]
-margin_left = 17.0
-margin_top = 186.0
-margin_right = 211.0
-margin_bottom = 200.0
+margin_left = 46.0
+margin_top = 205.0
+margin_right = 240.0
+margin_bottom = 219.0
+theme = ExtResource( 33 )
 text = "Guild name:"
 autowrap = true
 
 [node name="TextEdit" type="TextEdit" parent="UI/Start/Window3"]
-margin_left = 102.0
-margin_top = 182.0
-margin_right = 431.0
-margin_bottom = 203.0
+margin_left = 138.0
+margin_top = 201.0
+margin_right = 467.0
+margin_bottom = 222.0
+theme = ExtResource( 33 )
 text = "Goblin's Foot"
 caret_blink = true
 
@@ -1113,31 +1326,37 @@ margin_left = 179.0
 margin_top = 228.0
 margin_right = 335.0
 margin_bottom = 258.0
+theme = ExtResource( 33 )
 text = "Begin"
 
 [node name="End" type="Control" parent="UI"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 33 )
 
 [node name="Window" type="Panel" parent="UI/End"]
 margin_left = 138.0
 margin_top = 41.0
 margin_right = 552.0
 margin_bottom = 273.0
+theme = ExtResource( 33 )
 script = ExtResource( 23 )
 
 [node name="Header" type="Label" parent="UI/End/Window"]
-margin_left = 153.0
-margin_top = 8.0
-margin_right = 256.0
-margin_bottom = 22.0
+margin_left = 146.0
+margin_top = 36.0
+margin_right = 274.0
+margin_bottom = 50.0
+theme = ExtResource( 33 )
 text = "Congratulations!"
 
 [node name="Text" type="Label" parent="UI/End/Window"]
 margin_left = 9.0
-margin_top = 32.0
+margin_top = 69.0
 margin_right = 403.0
-margin_bottom = 113.0
+margin_bottom = 131.0
+theme = ExtResource( 33 )
 text = "You gained enough reputation to gain an audience with the King and deliver the Ring of Kings. Your guild - '#company' - will go down in history as one of the best couriers."
 autowrap = true
 
@@ -1145,25 +1364,28 @@ autowrap = true
 margin_left = 9.0
 margin_top = 125.0
 margin_right = 403.0
-margin_bottom = 188.0
+margin_bottom = 172.0
+theme = ExtResource( 33 )
 text = "This feat was accomplished in #days days.
 You managed to amass #gold gold pieces to your capital."
 autowrap = true
 
 [node name="Thanks" type="Label" parent="UI/End/Window"]
-margin_left = 118.0
-margin_top = 174.0
-margin_right = 294.0
-margin_bottom = 191.0
+margin_left = 106.0
+margin_top = 180.0
+margin_right = 317.0
+margin_bottom = 197.0
+theme = ExtResource( 33 )
 text = "Thank you for playing!"
 align = 1
 autowrap = true
 
 [node name="Button" type="Button" parent="UI/End/Window"]
-margin_left = 141.0
+margin_left = 134.0
 margin_top = 206.0
-margin_right = 273.0
+margin_right = 289.0
 margin_bottom = 226.0
+theme = ExtResource( 33 )
 text = "Continue playing?"
 
 [connection signal="timeout" from="DayTimer" to="DayTimer" method="_timeout"]
