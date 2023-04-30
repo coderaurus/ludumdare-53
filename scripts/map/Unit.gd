@@ -60,7 +60,7 @@ func move():
 		target = path[0].s_node_a
 		distance = (at.position as Vector2).distance_to(target.position)
 		travel_time = distance / speed * 0.7
-		tween.tween_property(self, "position", target.position, travel_time)
+		tween.tween_property(self, "position", target.position, travel_time).from(at.position)
 	# check events after movement
 	yield(tween, "finished")
 	target.visited = true

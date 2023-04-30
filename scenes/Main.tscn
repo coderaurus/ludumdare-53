@@ -75,7 +75,7 @@ reputation = 1.0
 position = Vector2( 192, 167 )
 script = ExtResource( 10 )
 portrait = ExtResource( 26 )
-speed = 5
+speed = 200
 defense = 3
 hired = true
 
@@ -958,7 +958,6 @@ theme = ExtResource( 33 )
 text = "Defend yourself"
 
 [node name="Unit" type="Control" parent="UI"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 theme = ExtResource( 33 )
@@ -1409,7 +1408,7 @@ text = "Continue playing?"
 [connection signal="pressed" from="UI/Unit Selector/Window/Unit3/Profile" to="UI/Unit Selector/Window/Unit3" method="_on_select"]
 [connection signal="pressed" from="UI/Unit Selector/Window/Unit4/Profile" to="UI/Unit Selector/Window/Unit4" method="_on_select"]
 [connection signal="pressed" from="UI/Unit Selector/Window/Unit5/Profile" to="UI/Unit Selector/Window/Unit5" method="_on_select"]
-[connection signal="pressed" from="UI/Unit/Window/Hire Button" to="UI/Unit/Window" method="_close"]
+[connection signal="pressed" from="UI/Unit/Window/Hire Button" to="UI/Unit/Window" method="_hire"]
 [connection signal="pressed" from="UI/Unit/Window/OK Button" to="UI/Unit/Window" method="_close"]
 [connection signal="pressed" from="UI/Start/Window/Next" to="UI/Start/Window" method="_next"]
 [connection signal="pressed" from="UI/Start/Window2/Next" to="UI/Start/Window" method="_next"]

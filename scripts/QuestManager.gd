@@ -24,8 +24,7 @@ func generate_quest():
 	quest.from = System.game.map.get_random_settlement()
 	quest.to = System.game.map.get_random_settlement(quest.from)
 	
-	var st = System.game.map.get_settlement_for_quest()
-	st.add_quest(quest)
+	quest.from.add_quest(quest)
 	add_child(quest)
 	return quest
 

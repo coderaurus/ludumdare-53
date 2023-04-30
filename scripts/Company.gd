@@ -3,7 +3,7 @@ extends Node2D
 class_name Company
 
 export var company_name = "Goblins 'r' Us"
-export var gold = 100
+export var gold = 10000
 export var reputation = 0.0 # percent
 export var reputation_titles = ["Infamous", "Known", "Acknowledged", "Revered"]
 
@@ -36,3 +36,11 @@ func reward(rep, g):
 	
 	if reputation >= 100 and !System.game.post_game:
 		System.game.game_completed()
+
+
+func units_ready():
+	var ready = 0
+	for u in units.get_children():
+		if u.quest == null and u.hired:
+			ready += 1
+	return ready

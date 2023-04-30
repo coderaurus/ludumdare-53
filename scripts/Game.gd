@@ -39,10 +39,11 @@ func start_game(company_name):
 
 
 func start_routing(quest, unit: Unit):
-	UI.start_routing()
+	routing_roads_selected = []
 	routing_quest = quest
 	routing_quest.unit = unit
 	routing_unit = unit
+	UI.start_routing()
 
 func cancel_routing():
 	routing_quest.unit = null
@@ -161,12 +162,13 @@ func close_routing(completed=true):
 		routing_quest.active = true
 		routing_unit.at.quest = routing_quest
 		routing_unit.at.unit = routing_unit
-		UI.routing = false
 		UI.unit_selector.show()
 		UI.hide_quest_at(routing_unit.at)
-		map.disable_roads()
 	else:
 		routing_quest.unit = null
+	map.disable_roads()
+	UI.routing = false
+	UI.enable_all_settlements()
 
 
 func settlement_connections(st: Settlement):
@@ -192,7 +194,14 @@ func quest_complete(q, rwd):
 		
 	q.queue_free()
 	
-	$Quests.generate_quest()
+	var units_ready = company.units_ready()
+	var settlements_empty = map.settlements_empty() - $Quests.quests.size()
+	var quests = units_ready
+	if quests > settlements_empty:
+		quests = settlements_empty
+		
+	for i in quests:
+		$Quests.generate_quest()
 
 func quest_aborted(q):
 	var reputation = -4
@@ -204,6 +213,7 @@ func quest_aborted(q):
 
 
 func continue_playing():
+	post_game = true
 	unpause_game()
 
 

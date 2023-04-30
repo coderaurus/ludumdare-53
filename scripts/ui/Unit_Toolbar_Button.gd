@@ -9,16 +9,14 @@ var unit
 func init(u: Unit):
 	if u != unit:
 		unit = u
+		
 	$Profile.disabled = false
 	$Profile.texture_normal = u.portrait
 	$Profile.modulate = Color.white
 	$Status.text = ""
 	
 	if not u.hired:
-		if !u.is_hirable():
-			$Profile.modulate = Color(0.2, 0.2, 0.2)
-		else:
-			$Profile.modulate = Color.white
+		$Profile.modulate = Color(0.2, 0.2, 0.2)
 
 
 func hide_status():
@@ -45,7 +43,6 @@ func _on_select():
 		System.game.UI.select_unit(unit)
 	else:
 		System.game.UI.open_unit(unit)
-		disable()
 
 
 func clear():
@@ -54,3 +51,4 @@ func clear():
 
 func disable():
 	$Profile.disabled = true
+	print("%s disabled" % unit.unit_name)

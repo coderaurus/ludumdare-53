@@ -9,7 +9,8 @@ func init(company : Company):
 		var unit = company.units.get_child(i)
 		unit_button.unit = unit
 		unit_button.init(unit)
-	
+
+
 func hide():
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "rect_position", Vector2.DOWN * 100, 0.1).as_relative()
@@ -24,10 +25,10 @@ func check_units():
 		unit_button.show_availability()
 
 
-func disable_buttons():
-	for i in get_child_count():
-		var unit_button : Unit_Toolbar_Button = get_child(i)
-		unit_button.disable()
+#func disable_buttons():
+#	for i in get_child_count():
+#		var unit_button : Unit_Toolbar_Button = get_child(i)
+#		unit_button.disable()
 
 
 func clear_units():

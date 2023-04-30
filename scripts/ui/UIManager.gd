@@ -63,8 +63,8 @@ func select_unit(unit):
 
 
 func open_quest(st: Settlement, quest, u: Unit = null):
-	if quest == null:
-		quest = st.quest
+#	if quest == null:
+#		quest = st.quest
 	quest_window.open(st, quest, u)
 	selecting_quest = true
 	unit_selector.check_units()
@@ -158,12 +158,15 @@ func start_routing():
 	routing = true
 	route_selction.open()
 	unit_selector.hide()
+	init_settlements_for_routing(System.game.routing_quest.from, System.game.routing_quest.to)
 
 
 func cancel_routing(q, u: Unit):
 	routing = false
 	unit_selector.show()
 	open_quest(q.from, q)
+	enable_all_settlements()
+	System.game.map.disable_roads()
 
 
 func show_route_confirmation():
@@ -204,3 +207,18 @@ func hide_event_at(st):
 	for s in settlements.get_children():
 		if s.s_node == st:
 			s.hide_event()
+
+
+func init_settlements_for_routing(start_st, end_st):
+	for s in settlements.get_children():
+		if s.s_node == start_st:
+			s.disable()
+		else:
+			s.enable()
+			
+			if s.s_node == end_st:
+				s.mark_route_target()
+
+func enable_all_settlements():
+	for s in settlements.get_children():
+		s.enable()

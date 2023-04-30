@@ -18,7 +18,7 @@ enum GOODS {FOOD, ART, MATERIALS, JEWELRY}
 var goods_type = GOODS.FOOD
 var goods_type_name = ["FOOD", "ART", "MATERIALS", "JEWELRY"]
 # rewarding
-var reward = 25
+var reward = 200
 
 func get_description():
 	var text = "\"" 

@@ -4,6 +4,7 @@ class_name Map
 
 onready var settlements = $Settlements
 
+var last_randomized_st
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,7 +42,7 @@ func get_road_to(st: Settlement, from: Settlement = null):
 func get_road_by_unit(unit: Unit, st : Settlement):
 	for i in $Roads.get_child_count():
 		var r = $Roads.get_child(i)
-		if (r.s_node_a.unit == unit or r.s_node_b.unit == unit) and (r.s_node_a == st or r.s_node_b == st):
+		if (r.s_node_a == unit.at or r.s_node_b == unit.at) and (r.s_node_a == st or r.s_node_b == st):
 			return r
 	return null
 
@@ -105,12 +106,28 @@ func get_settlement_for_quest():
 
 
 func get_random_settlement(exclude_st = null):
-	var failsafe = 200
+	var failsafe = 500
+	var rand_st
+	var index
 	while failsafe > 0:
-		var rng = randi() * settlements.get_child_count()
-		var index = clamp(rng, 0, settlements.get_child_count() - 1)
-		var rand_st = settlements.get_child(index)
-		if !rand_st.quest and (exclude_st != null or rand_st != exclude_st):
+		var rng = int(rand_range(0, settlements.get_child_count()))
+		index = clamp(rng, 0, settlements.get_child_count() - 1)
+		rand_st = settlements.get_child(index)
+		if last_randomized_st != rand_st and !rand_st.quest and (exclude_st == null or rand_st != exclude_st):
+			last_randomized_st = rand_st
 			return rand_st
 		failsafe -= 1
-	return null
+	if settlements.get_child_count() < index + 1:
+		rand_st = settlements.get_child(index+1)
+	elif 0 <= index - 1:
+		rand_st = settlements.get_child(index-1)
+	last_randomized_st = rand_st
+	return rand_st
+
+
+func settlements_empty():
+	var empty = 0
+	for s in settlements.get_children():
+		if s.quest == null:
+			empty += 1
+	return empty

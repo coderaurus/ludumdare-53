@@ -24,7 +24,7 @@ func _on_enter():
 	print("Entering %s" % settlement_name)
 	
 	if quest != null:
-		System.game.UI.open_quest(self, quest, unit)
+		System.game.UI.open_quest(self, quest)
 	elif event != null:
 		System.game.UI.open_settlement(self, event)
 	else:

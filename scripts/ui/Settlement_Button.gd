@@ -40,7 +40,7 @@ func _select():
 
 func disable():
 	$TextureButton.disabled = true
-	$TextureButton.modulate = Color.gray
+	$TextureButton.modulate = Color.darkgray
 
 
 func enable():
@@ -58,7 +58,11 @@ func pop_event():
 	
 func hide_quest():
 	quest_marker.visible = false
-	
-	
+
+
 func hide_event():
 	event_marker.visible = false
+
+
+func mark_route_target():
+	$TextureButton.modulate = Color.crimson
