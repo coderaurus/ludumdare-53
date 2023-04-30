@@ -96,3 +96,21 @@ func enable_roads(roads):
 
 func move_quest_unit(u: Unit, roads):
 	u.start_moving(roads)
+
+func get_settlement_for_quest():
+	for s in settlements.get_children():
+		if s.quest == null:
+			return s
+	return null
+
+
+func get_random_settlement(exclude_st = null):
+	var failsafe = 200
+	while failsafe > 0:
+		var rng = randi() * settlements.get_child_count()
+		var index = clamp(rng, 0, settlements.get_child_count() - 1)
+		var rand_st = settlements.get_child(index)
+		if !rand_st.quest and (exclude_st != null or rand_st != exclude_st):
+			return rand_st
+		failsafe -= 1
+	return null

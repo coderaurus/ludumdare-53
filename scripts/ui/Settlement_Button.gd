@@ -7,6 +7,9 @@ class_name Settlement_Button
 export var s_path : NodePath # settlement node
 onready var s_node = get_node(s_path)
 
+onready var quest_marker = $QuestMarker
+onready var event_marker = $EventMarker
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -42,3 +45,19 @@ func disable():
 func enable():
 	$TextureButton.disabled = false
 	$TextureButton.modulate = Color.white
+
+
+func pop_quest():
+	quest_marker.visible = true
+	
+	
+func pop_event():
+	event_marker.visible = true
+	
+	
+func hide_quest():
+	quest_marker.visible = false
+	
+	
+func hide_event():
+	event_marker.visible = false

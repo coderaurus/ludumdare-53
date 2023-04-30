@@ -36,5 +36,9 @@ func set_event(e : Event):
 	event = e
 	# notify player with a visual cue
 
+func add_quest(q):
+	set_quest(q)
+
 func set_quest(q):
 	quest = q
+	System.game.UI.pop_quest_at(self)

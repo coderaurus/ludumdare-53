@@ -67,7 +67,7 @@ func select_unit(u : Unit):
 	unit_stats.text = u.get_stats()
 	unit_type = u.unit_type_names[u.unit_type]
 	
-	if !quest.active:
+	if quest != null and !quest.active:
 		accept_button.disabled = false
 	else:
 		accept_button.disabled = true

@@ -4,8 +4,8 @@ class_name Unit
 
 export var portrait : Resource
 export var unit_name = "Bob"
-export(int, "Goblin", "Centaur", "Hydra", "Dragon") var unit_type = 0
-export var unit_type_names = ["Goblin", "Centaur", "Hydra", "Dragon"]
+export(int, "Goblin", "Chimera", "Hydra", "Ahriman") var unit_type = 0
+export var unit_type_names = ["Goblin", "Chimera", "Hydra", "Ahriman"]
 export var flies = false
 export var speed = 3
 export var defense = 2

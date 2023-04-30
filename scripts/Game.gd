@@ -27,6 +27,7 @@ func _ready():
 	st.set_quest($Quests.generate_first_quest())
 	
 	UI.init()
+	UI.start.get_parent().visible = true
 
 
 func start_game(company_name):
@@ -45,7 +46,7 @@ func start_routing(quest, unit: Unit):
 
 func cancel_routing():
 	routing_quest.unit = null
-	UI.cancel_routing(routing_unit, routing_quest)
+	UI.cancel_routing(routing_quest, routing_unit)
 
 func select_road(st : Settlement):
 	var last = null
@@ -134,6 +135,7 @@ func close_routing(completed=true):
 		routing_unit.at.unit = routing_unit
 		UI.routing = false
 		UI.unit_selector.show()
+		UI.hide_quest_at(routing_unit.at)
 		map.disable_roads()
 	else:
 		routing_quest.unit = null
@@ -148,7 +150,7 @@ func settlement_connections(st: Settlement):
 
 
 func quest_complete(q, rwd):
-	var reputation = 100
+	var reputation = 20
 	
 	# late?
 	if q.reward > rwd:
@@ -157,12 +159,18 @@ func quest_complete(q, rwd):
 	company.reward(reputation, rwd)
 	UI.company.update()
 	q.from.quest = null
+	if UI.quest_window.quest == q:
+		UI.quest_window.quest = null
+		
 	q.queue_free()
+	
+	$Quests.generate_quest()
 
 func quest_aborted(q):
 	var reputation = -4
 	company.reward(reputation)
 	UI.company.update()
+	UI.pop_quest_at(q.from)
 	q.unit = null
 	q.active = false
 

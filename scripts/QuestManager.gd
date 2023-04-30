@@ -20,9 +20,12 @@ func generate_first_quest():
 func generate_quest():
 	var quest = quest_scene.instance()
 	quest.quest_name = "New Task"
-#	quest.from = get_parent().get_settlement(0)
-#	quest.to = get_parent().get_settlement(2)
 	
+	quest.from = System.game.map.get_random_settlement()
+	quest.to = System.game.map.get_random_settlement(quest.from)
+	
+	var st = System.game.map.get_settlement_for_quest()
+	st.add_quest(quest)
 	add_child(quest)
 	return quest
 

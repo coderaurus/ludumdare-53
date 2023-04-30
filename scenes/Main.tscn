@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scripts/ui/UIManager.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://scripts/map/EventManager.gd" type="Script" id=14]
 [ext_resource path="res://scenes/map/Event.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scripts/ui/Event_Window.gd" type="Script" id=16]
+[ext_resource path="res://gfx/map/map.png" type="Texture" id=17]
 [ext_resource path="res://scripts/ui/Quest_Window.gd" type="Script" id=18]
 [ext_resource path="res://scripts/QuestManager.gd" type="Script" id=19]
 [ext_resource path="res://scripts/ui/Unit_Toolbar_Button.gd" type="Script" id=20]
@@ -107,6 +108,10 @@ shape = SubResource( 1 )
 [node name="Map" type="Node2D" parent="."]
 pause_mode = 1
 script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="Map"]
+position = Vector2( 320, 160 )
+texture = ExtResource( 17 )
 
 [node name="Roads" type="Node2D" parent="Map"]
 
@@ -304,6 +309,28 @@ rect_scale = Vector2( 0.25, 0.25 )
 rect_pivot_offset = Vector2( -8, -8 )
 texture_normal = ExtResource( 3 )
 
+[node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 1"]
+visible = false
+modulate = Color( 1, 0.976471, 0.376471, 1 )
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 68.0
+margin_bottom = 68.0
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 0, -16 )
+texture = ExtResource( 3 )
+
+[node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 1"]
+visible = false
+modulate = Color( 0.831373, 0.278431, 0.278431, 1 )
+margin_left = 4.0
+margin_top = 17.0
+margin_right = 68.0
+margin_bottom = 81.0
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 0, -16 )
+texture = ExtResource( 3 )
+
 [node name="Settlement 2" type="Control" parent="UI/Settlements"]
 margin_left = 467.0
 margin_top = 165.0
@@ -319,6 +346,28 @@ margin_bottom = 64.0
 rect_scale = Vector2( 0.25, 0.25 )
 rect_pivot_offset = Vector2( -8, -8 )
 texture_normal = ExtResource( 3 )
+
+[node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 2"]
+visible = false
+modulate = Color( 1, 0.976471, 0.376471, 1 )
+margin_left = 4.0
+margin_top = 3.60004
+margin_right = 68.0
+margin_bottom = 67.6
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 0, -16 )
+texture = ExtResource( 3 )
+
+[node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 2"]
+visible = false
+modulate = Color( 0.831373, 0.278431, 0.278431, 1 )
+margin_left = 4.0
+margin_top = 16.6
+margin_right = 68.0
+margin_bottom = 80.6
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 0, -16 )
+texture = ExtResource( 3 )
 
 [node name="Settlement 3" type="Control" parent="UI/Settlements"]
 margin_left = 384.0
@@ -336,6 +385,28 @@ rect_scale = Vector2( 0.25, 0.25 )
 rect_pivot_offset = Vector2( -8, -8 )
 texture_normal = ExtResource( 3 )
 
+[node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 3"]
+visible = false
+modulate = Color( 1, 0.976471, 0.376471, 1 )
+margin_left = 4.0
+margin_top = 3.60004
+margin_right = 68.0
+margin_bottom = 67.6
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 0, -16 )
+texture = ExtResource( 3 )
+
+[node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 3"]
+visible = false
+modulate = Color( 0.831373, 0.278431, 0.278431, 1 )
+margin_left = 4.0
+margin_top = 16.6
+margin_right = 68.0
+margin_bottom = 80.6
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 0, -16 )
+texture = ExtResource( 3 )
+
 [node name="Settlement 4" type="Control" parent="UI/Settlements"]
 margin_left = 384.0
 margin_top = 128.0
@@ -351,6 +422,28 @@ margin_bottom = 64.0
 rect_scale = Vector2( 0.25, 0.25 )
 rect_pivot_offset = Vector2( -8, -8 )
 texture_normal = ExtResource( 3 )
+
+[node name="QuestMarker" type="TextureRect" parent="UI/Settlements/Settlement 4"]
+visible = false
+modulate = Color( 1, 0.976471, 0.376471, 1 )
+margin_left = 4.0
+margin_top = 3.60004
+margin_right = 68.0
+margin_bottom = 67.6
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 0, -16 )
+texture = ExtResource( 3 )
+
+[node name="EventMarker" type="TextureRect" parent="UI/Settlements/Settlement 4"]
+visible = false
+modulate = Color( 0.831373, 0.278431, 0.278431, 1 )
+margin_left = 4.0
+margin_top = 16.6
+margin_right = 68.0
+margin_bottom = 80.6
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 0, -16 )
+texture = ExtResource( 3 )
 
 [node name="Units" type="Control" parent="UI"]
 margin_right = 40.0
@@ -1023,7 +1116,6 @@ margin_bottom = 258.0
 text = "Begin"
 
 [node name="End" type="Control" parent="UI"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
