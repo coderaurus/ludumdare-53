@@ -24,8 +24,8 @@ var post_game = false
 func _ready():
 	System.game = self
 	var st: Settlement = map.get_settlement(0)
-	st.set_quest($Quests.generate_first_quest())
-	
+	$Quests.generate_first_quest()
+		
 	UI.init()
 	UI.start.get_parent().visible = true
 
@@ -180,21 +180,22 @@ func settlement_connections(st: Settlement):
 
 
 func quest_complete(q, rwd):
-	var reputation = 20
+	var reputation = 5
 	
 	# late?
 	if q.reward > rwd:
-		reputation -= 1
+		reputation -= -2
 	
 	company.reward(reputation, rwd)
 	UI.company.update()
 	q.from.quest = null
 	if UI.quest_window.quest == q:
 		UI.quest_window.quest = null
-		
+	$Quests.quests.erase(q)
 	q.queue_free()
 	
-	var units_ready = company.units_ready()
+	
+	var units_ready = company.units_ready() - $Quests.quests.size()
 	var settlements_empty = map.settlements_empty() - $Quests.quests.size()
 	var quests = units_ready
 	if quests > settlements_empty:
@@ -237,3 +238,7 @@ func game_completed():
 	yield(get_tree().create_timer(0.5), "timeout")
 	UI.open_end()
 	pause_game()
+
+
+func new_quest():
+	$Quests.generate_quest()

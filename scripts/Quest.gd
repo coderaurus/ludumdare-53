@@ -20,6 +20,7 @@ var goods_type_name = ["FOOD", "ART", "MATERIALS", "JEWELRY"]
 # rewarding
 var reward = 200
 
+
 func get_description():
 	var text = "\"" 
 	text += " I need to get this %s to %s in %s days.\nYou up for it for %s gold?" % \
@@ -33,6 +34,7 @@ func complete():
 	if unit.at == to:
 		if used_days > asked_days:
 			rwd *= 0.75
+			rwd = int(rwd)
 		
 		unit.at = null
 		unit.quest = null

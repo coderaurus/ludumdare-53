@@ -51,5 +51,6 @@ func _hire():
 	# reduce company funds
 	# tap unit to hired
 	System.game.company.gold -= inspected_unit.pay
+	System.game.new_quest()
 	inspected_unit.hired = true
 	$"Hire Button".visible = false

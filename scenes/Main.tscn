@@ -50,7 +50,7 @@ script = ExtResource( 2 )
 
 [node name="DayTimer" type="Timer" parent="."]
 pause_mode = 1
-wait_time = 5.0
+wait_time = 3.0
 script = ExtResource( 25 )
 
 [node name="Quests" type="Node2D" parent="."]
@@ -75,7 +75,7 @@ reputation = 1.0
 position = Vector2( 192, 167 )
 script = ExtResource( 10 )
 portrait = ExtResource( 26 )
-speed = 200
+speed = 15
 defense = 3
 hired = true
 
@@ -87,10 +87,10 @@ position = Vector2( 192, 167 )
 script = ExtResource( 10 )
 portrait = ExtResource( 26 )
 unit_name = "Bob Sr."
-speed = 4
+speed = 20
 defense = 1
 charsima = 5
-pay = 300
+pay = 150
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit2"]
 shape = SubResource( 1 )
@@ -101,10 +101,10 @@ script = ExtResource( 10 )
 portrait = ExtResource( 27 )
 unit_name = "Bobitte"
 unit_type = 1
-speed = 10
+speed = 40
 defense = 4
 charsima = 5
-pay = 500
+pay = 300
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit3"]
 shape = SubResource( 1 )
@@ -115,9 +115,9 @@ script = ExtResource( 10 )
 portrait = ExtResource( 28 )
 unit_name = "Boba"
 unit_type = 2
-speed = 9
+speed = 16
 defense = 10
-pay = 600
+pay = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit4"]
 shape = SubResource( 1 )
@@ -128,10 +128,10 @@ script = ExtResource( 10 )
 portrait = ExtResource( 29 )
 unit_name = "Bobocop"
 unit_type = 3
-speed = 16
+speed = 200
 defense = 3
 charsima = 10
-pay = 1000
+pay = 666
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Company/Units/Unit5"]
 shape = SubResource( 1 )
